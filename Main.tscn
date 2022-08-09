@@ -1,0 +1,1565 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://Backend.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/ComicNeue-Bold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://ContextMenu.gd" type="Script" id=3]
+[ext_resource path="res://Fonts/25Font.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Settings.gd" type="Script" id=5]
+[ext_resource path="res://Fonts/Roboto-Light.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Fonts/30Font.tres" type="DynamicFont" id=7]
+[ext_resource path="res://question-mark-button-svgrepo-com.svg" type="Texture" id=8]
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.298039, 0.298039, 0.298039, 1 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 100
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.117647, 0.129412, 0.168627, 1 )
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color( 0.4, 0.501961, 1, 1 )
+border_blend = true
+
+[sub_resource type="DynamicFont" id=3]
+size = 40
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 20
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 20
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 20
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 20
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 20
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=9]
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=11]
+size = 20
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 20
+font_data = ExtResource( 6 )
+
+[node name="MainStart" type="Label"]
+margin_right = 40.0
+margin_bottom = 14.0
+script = ExtResource( 1 )
+
+[node name="BackgroundPanel" type="Panel" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+custom_styles/panel = SubResource( 4 )
+
+[node name="HangmanRoot" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+
+[node name="Arc" type="Line2D" parent="HangmanRoot"]
+position = Vector2( 461.25, 412.891 )
+scale = Vector2( 0.645677, 0.55304 )
+points = PoolVector2Array( -256, 256, -251, 206, -237, 158, -212, 114, -181, 75, -142, 43, -97, 19, -49, 5, 0, 0, 50, 5, 98, 19, 142, 43, 181, 75, 213, 114, 237, 158, 251, 206, 256, 256 )
+default_color = Color( 0.4, 0.501961, 1, 1 )
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true
+
+[node name="Vertical" type="Line2D" parent="HangmanRoot"]
+position = Vector2( 456, 408 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( 8, 5, 8, -400 )
+
+[node name="Horizontal" type="Line2D" parent="HangmanRoot"]
+position = Vector2( 452, 406 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( 8, -400, 366, -400 )
+
+[node name="SupportBeam" type="Line2D" parent="HangmanRoot"]
+position = Vector2( 456, 408 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( 9.42786, -297.92, 84.8507, -404.32 )
+
+[node name="Rope" type="Line2D" parent="HangmanRoot"]
+position = Vector2( 456, 406 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( 358, -400, 358, -330 )
+width = 5.0
+
+[node name="Head" type="Line2D" parent="HangmanRoot"]
+position = Vector2( 722, 250 )
+scale = Vector2( 0.41215, 0.313025 )
+points = PoolVector2Array( 100, 0, 92.388, 38.268, 70.711, 70.711, 38.268, 92.388, 0, 100, -38.269, 92.388, -70.711, 70.711, -92.388, 38.269, -100, 0, -92.388, -38.269, -70.711, -70.711, -38.269, -92.388, 0, -100, 38.269, -92.388, 70.711, -70.711, 92.388, -38.269, 100, 0 )
+antialiased = true
+
+[node name="BodyUpper" type="Line2D" parent="HangmanRoot"]
+position = Vector2( 456, 408 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( 358, -226, 358, -100 )
+width = 8.0
+
+[node name="ArmLeft" type="Line2D" parent="HangmanRoot"]
+position = Vector2( 456, 408 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( 354.218, -140.093, 301.691, -180.88 )
+width = 8.0
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="ArmRight" type="Line2D" parent="HangmanRoot"]
+position = Vector2( 987, 409 )
+rotation = 3.14159
+scale = Vector2( 0.742481, -0.56391 )
+points = PoolVector2Array( 354.218, -140.093, 301.691, -180.88 )
+width = 8.0
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="BodyLower" type="Line2D" parent="HangmanRoot"]
+position = Vector2( 456, 478 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( 358, -226, 358, -150 )
+width = 8.0
+end_cap_mode = 2
+
+[node name="LegLeft" type="Line2D" parent="HangmanRoot"]
+position = Vector2( 480, 380 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( 269, 90, 299.208, 53.432, 326, 21 )
+width = 8.0
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="LegRight" type="Line2D" parent="HangmanRoot"]
+position = Vector2( 963, 380 )
+rotation = 3.14159
+scale = Vector2( 0.742481, -0.56391 )
+points = PoolVector2Array( 269, 90, 326, 21 )
+width = 8.0
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="GuessingRoot" type="Label" parent="."]
+margin_left = -8.0
+margin_top = 16.0
+margin_right = 32.0
+margin_bottom = 30.0
+
+[node name="Letter0" type="Line2D" parent="GuessingRoot"]
+position = Vector2( 528, 400 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -571.058, -595.84 )
+default_color = Color( 0.4, 0.501961, 1, 1 )
+
+[node name="Label" type="Label" parent="GuessingRoot/Letter0"]
+margin_left = -650.522
+margin_top = -695.146
+margin_right = -540.522
+margin_bottom = -465.146
+rect_pivot_offset = Vector2( 57.9142, 99.3062 )
+custom_colors/font_color = Color( 0.4, 0.501961, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "H"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Letter1" type="Line2D" parent="GuessingRoot"]
+position = Vector2( 616, 400 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -571.058, -595.84 )
+
+[node name="Label" type="Label" parent="GuessingRoot/Letter1"]
+margin_left = -646.481
+margin_top = -695.146
+margin_right = -536.481
+margin_bottom = -465.146
+custom_colors/font_color = Color( 0.4, 0.501961, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "E"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Letter2" type="Line2D" parent="GuessingRoot"]
+position = Vector2( 704, 400 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -571.058, -595.84 )
+
+[node name="Label" type="Label" parent="GuessingRoot/Letter2"]
+margin_left = -646.481
+margin_top = -695.146
+margin_right = -536.481
+margin_bottom = -465.146
+custom_colors/font_color = Color( 0.4, 0.501961, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "L"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Letter3" type="Line2D" parent="GuessingRoot"]
+position = Vector2( 792, 400 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -571.058, -595.84 )
+
+[node name="Label" type="Label" parent="GuessingRoot/Letter3"]
+margin_left = -646.481
+margin_top = -695.146
+margin_right = -536.481
+margin_bottom = -465.146
+custom_colors/font_color = Color( 0.4, 0.501961, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "L"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Letter4" type="Line2D" parent="GuessingRoot"]
+position = Vector2( 880, 400 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -571.058, -595.84 )
+
+[node name="Label" type="Label" parent="GuessingRoot/Letter4"]
+margin_left = -646.481
+margin_top = -695.146
+margin_right = -536.481
+margin_bottom = -465.146
+custom_colors/font_color = Color( 0.4, 0.501961, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "O"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Letter5" type="Line2D" parent="GuessingRoot"]
+position = Vector2( 968, 400 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -571.058, -595.84 )
+
+[node name="Label" type="Label" parent="GuessingRoot/Letter5"]
+margin_left = -646.481
+margin_top = -695.146
+margin_right = -536.481
+margin_bottom = -465.146
+custom_colors/font_color = Color( 0.4, 0.501961, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "-"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Letter6" type="Line2D" parent="GuessingRoot"]
+position = Vector2( 1056, 400 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -571.058, -595.84 )
+
+[node name="Label" type="Label" parent="GuessingRoot/Letter6"]
+margin_left = -654.562
+margin_top = -695.146
+margin_right = -544.562
+margin_bottom = -465.146
+custom_colors/font_color = Color( 0.4, 0.501961, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "W"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Letter7" type="Line2D" parent="GuessingRoot"]
+position = Vector2( 1144, 400 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -571.058, -595.84 )
+
+[node name="Label" type="Label" parent="GuessingRoot/Letter7"]
+margin_left = -646.481
+margin_top = -695.146
+margin_right = -536.481
+margin_bottom = -465.146
+custom_colors/font_color = Color( 0.4, 0.501961, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "O"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Letter8" type="Line2D" parent="GuessingRoot"]
+position = Vector2( 1232, 400 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -571.058, -595.84 )
+
+[node name="Label" type="Label" parent="GuessingRoot/Letter8"]
+margin_left = -646.481
+margin_top = -695.146
+margin_right = -536.481
+margin_bottom = -465.146
+custom_colors/font_color = Color( 0.4, 0.501961, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "R"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Letter9" type="Line2D" parent="GuessingRoot"]
+position = Vector2( 1320, 400 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -571.058, -595.84 )
+
+[node name="Label" type="Label" parent="GuessingRoot/Letter9"]
+margin_left = -646.481
+margin_top = -695.146
+margin_right = -536.481
+margin_bottom = -465.146
+custom_colors/font_color = Color( 0.4, 0.501961, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "L"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Letter10" type="Line2D" parent="GuessingRoot"]
+position = Vector2( 1408, 400 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -571.058, -595.84 )
+
+[node name="Label" type="Label" parent="GuessingRoot/Letter10"]
+margin_left = -646.481
+margin_top = -695.146
+margin_right = -536.481
+margin_bottom = -465.146
+custom_colors/font_color = Color( 0.4, 0.501961, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "D"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="WrongGuessesRoot" type="Label" parent="."]
+margin_left = -8.0
+margin_top = 16.0
+margin_right = 32.0
+margin_bottom = 30.0
+
+[node name="Guess0" type="Line2D" parent="WrongGuessesRoot"]
+visible = false
+position = Vector2( 616, 632 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -571.058, -595.84 )
+default_color = Color( 1, 0.611765, 0.4, 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="WrongGuessesRoot/Guess0"]
+margin_left = -650.522
+margin_top = -695.146
+margin_right = -540.522
+margin_bottom = -465.146
+rect_pivot_offset = Vector2( 57.9142, 99.3062 )
+custom_colors/font_color = Color( 0.866667, 0.698039, 0.117647, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "L"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Guess1" type="Line2D" parent="WrongGuessesRoot"]
+visible = false
+position = Vector2( 768, 512 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -571.058, -595.84 )
+default_color = Color( 1, 0.611765, 0.4, 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="WrongGuessesRoot/Guess1"]
+margin_left = -650.522
+margin_top = -695.146
+margin_right = -540.522
+margin_bottom = -465.146
+rect_pivot_offset = Vector2( 57.9142, 99.3062 )
+custom_colors/font_color = Color( 0.866667, 0.698039, 0.117647, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "A"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Guess2" type="Line2D" parent="WrongGuessesRoot"]
+visible = false
+position = Vector2( 1416, 776 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -571.058, -595.84 )
+default_color = Color( 1, 0.611765, 0.4, 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="WrongGuessesRoot/Guess2"]
+margin_left = -650.522
+margin_top = -695.146
+margin_right = -540.522
+margin_bottom = -465.146
+rect_pivot_offset = Vector2( 57.9142, 99.3062 )
+custom_colors/font_color = Color( 0.866667, 0.698039, 0.117647, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "P"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Guess3" type="Line2D" parent="WrongGuessesRoot"]
+visible = false
+position = Vector2( 1304, 864 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -571.058, -595.84 )
+default_color = Color( 1, 0.611765, 0.4, 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="WrongGuessesRoot/Guess3"]
+margin_left = -650.522
+margin_top = -695.146
+margin_right = -540.522
+margin_bottom = -465.146
+rect_pivot_offset = Vector2( 57.9142, 99.3062 )
+custom_colors/font_color = Color( 0.866667, 0.698039, 0.117647, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "J"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Guess4" type="Line2D" parent="WrongGuessesRoot"]
+visible = false
+position = Vector2( 1392, 504 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -571.058, -595.84 )
+default_color = Color( 1, 0.611765, 0.4, 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="WrongGuessesRoot/Guess4"]
+margin_left = -650.522
+margin_top = -695.146
+margin_right = -540.522
+margin_bottom = -465.146
+rect_pivot_offset = Vector2( 57.9142, 99.3062 )
+custom_colors/font_color = Color( 0.866667, 0.698039, 0.117647, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "X"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Guess5" type="Line2D" parent="WrongGuessesRoot"]
+visible = false
+position = Vector2( 768, 712 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -571.058, -595.84 )
+default_color = Color( 1, 0.611765, 0.4, 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="WrongGuessesRoot/Guess5"]
+margin_left = -650.522
+margin_top = -695.146
+margin_right = -540.522
+margin_bottom = -465.146
+rect_pivot_offset = Vector2( 57.9142, 99.3062 )
+custom_colors/font_color = Color( 0.866667, 0.698039, 0.117647, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "K"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Guess6" type="Line2D" parent="WrongGuessesRoot"]
+visible = false
+position = Vector2( 1056, 600 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -615.189, -595.84, -571.058, -595.84 )
+default_color = Color( 1, 0.611765, 0.4, 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="WrongGuessesRoot/Guess6"]
+margin_left = -650.522
+margin_top = -695.146
+margin_right = -540.522
+margin_bottom = -465.146
+rect_pivot_offset = Vector2( 57.9142, 99.3062 )
+custom_colors/font_color = Color( 0.866667, 0.698039, 0.117647, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "G"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Guess7" type="Line2D" parent="WrongGuessesRoot"]
+visible = false
+position = Vector2( 560, 504 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -615.189, -595.84, -571.058, -595.84 )
+default_color = Color( 1, 0.611765, 0.4, 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="WrongGuessesRoot/Guess7"]
+margin_left = -650.522
+margin_top = -695.146
+margin_right = -540.522
+margin_bottom = -465.146
+rect_pivot_offset = Vector2( 57.9142, 99.3062 )
+custom_colors/font_color = Color( 0.866667, 0.698039, 0.117647, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "B"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Guess8" type="Line2D" parent="WrongGuessesRoot"]
+visible = false
+position = Vector2( 872, 816 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -615.189, -595.84, -571.058, -595.84 )
+default_color = Color( 1, 0.611765, 0.4, 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="WrongGuessesRoot/Guess8"]
+margin_left = -650.522
+margin_top = -695.146
+margin_right = -540.522
+margin_bottom = -465.146
+rect_pivot_offset = Vector2( 57.9142, 99.3062 )
+custom_colors/font_color = Color( 0.866667, 0.698039, 0.117647, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "G"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Guess9" type="Line2D" parent="WrongGuessesRoot"]
+visible = false
+position = Vector2( 1000, 864 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -615.189, -595.84, -571.058, -595.84 )
+default_color = Color( 1, 0.611765, 0.4, 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="WrongGuessesRoot/Guess9"]
+margin_left = -650.522
+margin_top = -695.146
+margin_right = -540.522
+margin_bottom = -465.146
+rect_pivot_offset = Vector2( 57.9142, 99.3062 )
+custom_colors/font_color = Color( 0.866667, 0.698039, 0.117647, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Q"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Guess10" type="Line2D" parent="WrongGuessesRoot"]
+visible = false
+position = Vector2( 1312, 640 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -615.189, -595.84, -571.058, -595.84 )
+default_color = Color( 1, 0.611765, 0.4, 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="WrongGuessesRoot/Guess10"]
+margin_left = -650.522
+margin_top = -695.146
+margin_right = -540.522
+margin_bottom = -465.146
+rect_pivot_offset = Vector2( 57.9142, 99.3062 )
+custom_colors/font_color = Color( 0.866667, 0.698039, 0.117647, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Q"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Guess11" type="Line2D" parent="WrongGuessesRoot"]
+visible = false
+position = Vector2( 568, 800 )
+scale = Vector2( 0.742481, 0.56391 )
+points = PoolVector2Array( -657.256, -595.84, -615.189, -595.84, -571.058, -595.84 )
+default_color = Color( 1, 0.611765, 0.4, 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="WrongGuessesRoot/Guess11"]
+margin_left = -650.522
+margin_top = -695.146
+margin_right = -540.522
+margin_bottom = -465.146
+rect_pivot_offset = Vector2( 57.9142, 99.3062 )
+custom_colors/font_color = Color( 0.866667, 0.698039, 0.117647, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "M"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ErrorDialog" type="AcceptDialog" parent="."]
+margin_left = 264.0
+margin_top = 144.0
+margin_right = 742.0
+margin_bottom = 352.0
+window_title = "Error"
+dialog_text = "The entered authorization key was not accepted by the server. Try again."
+
+[node name="FinishedBox" type="Panel" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 128.0
+margin_top = 120.0
+margin_right = 848.0
+margin_bottom = 568.0
+custom_styles/panel = SubResource( 2 )
+
+[node name="Label" type="Label" parent="FinishedBox"]
+margin_left = 32.0
+margin_top = 24.0
+margin_right = 697.0
+margin_bottom = 432.0
+size_flags_horizontal = 3
+size_flags_vertical = 2
+custom_colors/font_color = Color( 0.4, 0.501961, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "1. JustPoolitzer with 5 guesses
+2. Owo with 3 guesses
+3. fir_ with 7 guesses"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Control" type="Control" parent="."]
+margin_left = 1.0
+margin_right = 1025.0
+margin_bottom = 600.0
+
+[node name="ContextMenu" type="PopupMenu" parent="."]
+margin_left = 328.0
+margin_top = 146.0
+margin_right = 624.0
+margin_bottom = 256.0
+script = ExtResource( 3 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ContextMenu"]
+margin_right = 296.0
+margin_bottom = 104.0
+
+[node name="PreviewGame" type="CheckBox" parent="ContextMenu/VBoxContainer"]
+margin_right = 296.0
+margin_bottom = 24.0
+text = "Preview full game"
+
+[node name="PreviewFinish" type="CheckBox" parent="ContextMenu/VBoxContainer"]
+margin_top = 28.0
+margin_right = 296.0
+margin_bottom = 52.0
+text = "Preview finish screen"
+
+[node name="FolderButton" type="ToolButton" parent="ContextMenu/VBoxContainer"]
+margin_top = 56.0
+margin_right = 296.0
+margin_bottom = 78.0
+text = "Open saves folder"
+
+[node name="SettingsButton" type="ToolButton" parent="ContextMenu/VBoxContainer"]
+margin_top = 82.0
+margin_right = 296.0
+margin_bottom = 104.0
+text = "Settings"
+
+[node name="Settings" type="Panel" parent="."]
+visible = false
+margin_right = 1024.0
+margin_bottom = 600.0
+script = ExtResource( 5 )
+
+[node name="TabContainer" type="TabContainer" parent="Settings"]
+margin_right = 1024.0
+margin_bottom = 600.0
+custom_fonts/font = ExtResource( 4 )
+
+[node name="Colours" type="Control" parent="Settings/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 42.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Background" type="ColorPickerButton" parent="Settings/TabContainer/Colours"]
+margin_left = 220.0
+margin_top = 54.0
+margin_right = 348.0
+margin_bottom = 94.0
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Colours/Background"]
+margin_left = 136.0
+margin_top = 8.0
+margin_right = 241.0
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 4 )
+text = "Background"
+
+[node name="Hangman" type="ColorPickerButton" parent="Settings/TabContainer/Colours"]
+margin_left = 564.0
+margin_top = 54.0
+margin_right = 692.0
+margin_bottom = 94.0
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Colours/Hangman"]
+margin_left = 136.0
+margin_top = 8.0
+margin_right = 241.0
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 4 )
+text = "Hangman"
+
+[node name="Guessing" type="ColorPickerButton" parent="Settings/TabContainer/Colours"]
+margin_left = 556.0
+margin_top = 174.0
+margin_right = 684.0
+margin_bottom = 214.0
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Colours/Guessing"]
+margin_left = 136.0
+margin_top = 8.0
+margin_right = 241.0
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 4 )
+text = "Lines below the guess characters"
+
+[node name="GuessingLetters" type="ColorPickerButton" parent="Settings/TabContainer/Colours"]
+margin_left = 76.0
+margin_top = 166.0
+margin_right = 204.0
+margin_bottom = 206.0
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Colours/GuessingLetters"]
+margin_left = 136.0
+margin_top = 8.0
+margin_right = 241.0
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 4 )
+text = "The guess characters"
+
+[node name="Wrong" type="ColorPickerButton" parent="Settings/TabContainer/Colours"]
+margin_left = 556.0
+margin_top = 246.0
+margin_right = 684.0
+margin_bottom = 286.0
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Colours/Wrong"]
+margin_left = 136.0
+margin_top = 8.0
+margin_right = 241.0
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 4 )
+text = "The lines below the wrong guesses"
+
+[node name="WrongLetters" type="ColorPickerButton" parent="Settings/TabContainer/Colours"]
+margin_left = 76.0
+margin_top = 254.0
+margin_right = 204.0
+margin_bottom = 294.0
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Colours/WrongLetters"]
+margin_left = 136.0
+margin_top = 8.0
+margin_right = 241.0
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 4 )
+text = "The wrongly guessed characters"
+
+[node name="FinishBackground" type="ColorPickerButton" parent="Settings/TabContainer/Colours"]
+margin_left = 380.0
+margin_top = 462.0
+margin_right = 508.0
+margin_bottom = 502.0
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Colours/FinishBackground"]
+margin_left = 136.0
+margin_top = 8.0
+margin_right = 241.0
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 4 )
+text = "The background of the finish box"
+
+[node name="FinishBorder" type="ColorPickerButton" parent="Settings/TabContainer/Colours"]
+margin_left = 116.0
+margin_top = 382.0
+margin_right = 244.0
+margin_bottom = 422.0
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Colours/FinishBorder"]
+margin_left = 136.0
+margin_top = 8.0
+margin_right = 241.0
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 4 )
+text = "The border of the finish box"
+
+[node name="FinishText" type="ColorPickerButton" parent="Settings/TabContainer/Colours"]
+margin_left = 580.0
+margin_top = 382.0
+margin_right = 708.0
+margin_bottom = 422.0
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Colours/FinishText"]
+margin_left = 136.0
+margin_top = 8.0
+margin_right = 241.0
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 4 )
+text = "The text of the finish box"
+
+[node name="Server" type="Control" parent="Settings/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 42.0
+margin_right = -4.0
+margin_bottom = -4.0
+rect_pivot_offset = Vector2( 388, 166 )
+
+[node name="Server_URL" type="LineEdit" parent="Settings/TabContainer/Server"]
+margin_left = 340.0
+margin_top = 86.0
+margin_right = 700.0
+margin_bottom = 174.0
+custom_fonts/font = SubResource( 5 )
+align = 1
+placeholder_text = "URL"
+
+[node name="Key" type="LineEdit" parent="Settings/TabContainer/Server"]
+margin_left = 340.0
+margin_top = 214.0
+margin_right = 700.0
+margin_bottom = 302.0
+custom_fonts/font = SubResource( 5 )
+align = 1
+placeholder_text = "Key"
+
+[node name="Submit" type="Button" parent="Settings/TabContainer/Server"]
+margin_left = 404.0
+margin_top = 358.0
+margin_right = 620.0
+margin_bottom = 414.0
+text = "Submit"
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Server"]
+visible = false
+margin_left = 420.0
+margin_top = 438.0
+margin_right = 614.0
+margin_bottom = 462.0
+custom_fonts/font = ExtResource( 4 )
+text = "Server sucessfully set!"
+
+[node name="Hangman" type="Control" parent="Settings/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 42.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="BuildHangman" type="CheckBox" parent="Settings/TabContainer/Hangman"]
+margin_left = 164.0
+margin_top = 46.0
+margin_right = 423.0
+margin_bottom = 86.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 6 )
+text = "Just building the hangman"
+expand_icon = true
+
+[node name="GuessHangman" type="CheckBox" parent="Settings/TabContainer/Hangman"]
+margin_left = 564.0
+margin_top = 46.0
+margin_right = 823.0
+margin_bottom = 86.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 6 )
+pressed = true
+text = "Actually guessing words"
+expand_icon = true
+
+[node name="GuessedLetters" type="CheckBox" parent="Settings/TabContainer/Hangman"]
+margin_left = 164.0
+margin_top = 334.0
+margin_right = 423.0
+margin_bottom = 374.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 7 )
+pressed = true
+text = "Show guessed letters"
+expand_icon = true
+
+[node name="WrongLetters" type="CheckBox" parent="Settings/TabContainer/Hangman"]
+margin_left = 572.0
+margin_top = 334.0
+margin_right = 831.0
+margin_bottom = 374.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 7 )
+pressed = true
+text = "Show wrong guesses"
+expand_icon = true
+
+[node name="CountAlreadyGuessed" type="CheckBox" parent="Settings/TabContainer/Hangman"]
+margin_left = 348.0
+margin_top = 438.0
+margin_right = 633.0
+margin_bottom = 478.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 7 )
+pressed = true
+text = "Count already guessed letters"
+expand_icon = true
+
+[node name="SpinBox" type="SpinBox" parent="Settings/TabContainer/Hangman"]
+margin_left = 268.0
+margin_top = 174.0
+margin_right = 508.0
+margin_bottom = 238.0
+min_value = 1.0
+max_value = 12.0
+value = 11.0
+rounded = true
+align = 1
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Hangman/SpinBox"]
+margin_left = 256.0
+margin_top = 8.0
+margin_right = 615.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 4 )
+text = "Amount of guesses
+Changing this will reset the current round!"
+
+[node name="Words" type="Control" parent="Settings/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 42.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Label2" type="Label" parent="Settings/TabContainer/Words"]
+margin_left = 172.0
+margin_top = 22.0
+margin_right = 390.0
+margin_bottom = 46.0
+custom_fonts/font = ExtResource( 4 )
+text = "Append to existing words"
+
+[node name="CurrentWord" type="LineEdit" parent="Settings/TabContainer/Words"]
+margin_left = 668.0
+margin_top = 70.0
+margin_right = 868.0
+margin_bottom = 116.0
+custom_fonts/font = ExtResource( 7 )
+max_length = 11
+placeholder_text = "CurrentWord"
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Words"]
+margin_left = 660.0
+margin_top = 30.0
+margin_right = 878.0
+margin_bottom = 54.0
+custom_fonts/font = ExtResource( 4 )
+text = "Current word"
+align = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Settings/TabContainer/Words"]
+margin_left = 180.0
+margin_top = 75.0
+margin_right = 380.0
+margin_bottom = 318.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/TabContainer/Words/ScrollContainer"]
+margin_right = 200.0
+margin_bottom = 146.0
+rect_min_size = Vector2( 200, 0 )
+
+[node name="LineEdit0" type="LineEdit" parent="Settings/TabContainer/Words/ScrollContainer/VBoxContainer"]
+margin_right = 200.0
+margin_bottom = 46.0
+custom_fonts/font = ExtResource( 7 )
+max_length = 11
+placeholder_text = "Hello-World"
+
+[node name="LineEdit1" type="LineEdit" parent="Settings/TabContainer/Words/ScrollContainer/VBoxContainer"]
+margin_top = 50.0
+margin_right = 200.0
+margin_bottom = 96.0
+custom_fonts/font = ExtResource( 7 )
+max_length = 11
+placeholder_text = "Button"
+
+[node name="LineEdit2" type="LineEdit" parent="Settings/TabContainer/Words/ScrollContainer/VBoxContainer"]
+margin_top = 100.0
+margin_right = 200.0
+margin_bottom = 146.0
+custom_fonts/font = ExtResource( 7 )
+max_length = 11
+placeholder_text = "Pool"
+
+[node name="OpenCsvFile" type="Button" parent="Settings/TabContainer/Words"]
+margin_left = 152.0
+margin_top = 336.0
+margin_right = 416.0
+margin_bottom = 400.0
+hint_tooltip = "Press on the question mark to learn more about the expected format."
+text = "Open .csv file to append"
+
+[node name="FileDialog" type="FileDialog" parent="Settings/TabContainer/Words/OpenCsvFile"]
+margin_left = -224.0
+margin_top = -272.0
+margin_right = 536.0
+margin_bottom = 160.0
+window_title = "Open a File"
+mode = 0
+access = 2
+filters = PoolStringArray( "*.csv" )
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Words/OpenCsvFile"]
+margin_left = -28.0
+margin_top = 78.0
+margin_right = 306.0
+margin_bottom = 129.0
+custom_fonts/font = ExtResource( 4 )
+text = "Words succesfully appended.
+You can select another file if you want."
+align = 1
+
+[node name="TextureRect" type="TextureRect" parent="Settings/TabContainer/Words"]
+margin_left = 428.0
+margin_top = 350.0
+margin_right = 850.0
+margin_bottom = 772.0
+rect_scale = Vector2( 0.1, 0.1 )
+hint_tooltip = "Click me."
+texture = ExtResource( 8 )
+
+[node name="HintDialog" type="WindowDialog" parent="Settings/TabContainer/Words"]
+margin_left = 96.0
+margin_top = 51.0
+margin_right = 952.0
+margin_bottom = 499.0
+window_title = "About the .csv file."
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Words/HintDialog"]
+margin_right = 856.0
+margin_bottom = 448.0
+text = "
+The .csv file expected could be one from a different instance of this client or one you made yourself.
+
+The first columns of the csv is the word itself, the second one if it was already used (1) or not (0). You can reset all of them to 0 with the button on the right (that will also reset the currently saved words ofc.)
+
+The expected delimiter is the ,. If you use it in your word, wrap the word in enclosing quotes. If you want to use a quote, double quote it. 
+Example:
+
+\"Hello-World\",1
+Owo,0
+Cool,1
+With\"\"Quote,1
+\"Owo,Owo\",0"
+autowrap = true
+
+[node name="AppendRandom" type="CheckBox" parent="Settings/TabContainer/Words"]
+margin_left = 274.0
+margin_top = 479.0
+margin_right = 743.0
+margin_bottom = 519.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 10 )
+pressed = true
+text = "Append random words if yours have been guessed"
+expand_icon = true
+
+[node name="ResetUsed" type="Button" parent="Settings/TabContainer/Words"]
+margin_left = 668.0
+margin_top = 206.0
+margin_right = 868.0
+margin_bottom = 262.0
+text = "Reset used status for words"
+
+[node name="ResetWords" type="Button" parent="Settings/TabContainer/Words"]
+margin_left = 668.0
+margin_top = 334.0
+margin_right = 868.0
+margin_bottom = 390.0
+text = "Reset words"
+
+[node name="ResetDialog" type="ConfirmationDialog" parent="Settings/TabContainer/Words"]
+margin_left = 292.0
+margin_top = 126.0
+margin_right = 724.0
+margin_bottom = 334.0
+window_title = "This is a fancy title."
+dialog_text = "Please confirm that you really want to delete all currently saved words.
+
+There is no further confirmation. Do or do not.
+
+You can backup the file if you want, you find it in the saves folder of the right click menu."
+dialog_autowrap = true
+
+[node name="Chat Commands" type="Control" parent="Settings/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 42.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="ExplainBot" type="CheckBox" parent="Settings/TabContainer/Chat Commands"]
+margin_left = 20.0
+margin_top = 205.0
+margin_right = 279.0
+margin_bottom = 245.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 8 )
+text = "Explain the bot"
+expand_icon = true
+
+[node name="ExplainBotCommand" type="LineEdit" parent="Settings/TabContainer/Chat Commands/ExplainBot"]
+margin_left = 32.0
+margin_top = 40.0
+margin_right = 280.0
+margin_bottom = 81.0
+custom_fonts/font = ExtResource( 4 )
+text = "!hangmanbot"
+
+[node name="Guess" type="CheckBox" parent="Settings/TabContainer/Chat Commands"]
+margin_left = 20.0
+margin_top = 94.0
+margin_right = 279.0
+margin_bottom = 134.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 8 )
+disabled = true
+pressed = true
+text = "Guess"
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="GuessCommand" type="LineEdit" parent="Settings/TabContainer/Chat Commands/Guess"]
+margin_left = 32.0
+margin_top = 40.0
+margin_right = 280.0
+margin_bottom = 81.0
+custom_fonts/font = ExtResource( 4 )
+text = "!guess"
+
+[node name="GuessedLettersWrong" type="CheckBox" parent="Settings/TabContainer/Chat Commands"]
+margin_left = 364.0
+margin_top = 318.0
+margin_right = 623.0
+margin_bottom = 358.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 8 )
+text = "Wrongly guessed letters"
+expand_icon = true
+
+[node name="LettersWrongCommand" type="LineEdit" parent="Settings/TabContainer/Chat Commands/GuessedLettersWrong"]
+margin_left = 32.0
+margin_top = 40.0
+margin_right = 280.0
+margin_bottom = 81.0
+custom_fonts/font = ExtResource( 4 )
+text = "!wrong"
+
+[node name="ShowingWrongLetters" type="Label" parent="Settings/TabContainer/Chat Commands/GuessedLettersWrong"]
+margin_left = 288.0
+margin_top = 17.0
+margin_right = 640.0
+margin_bottom = 80.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "You disabled showing wrongly guessed letters on screen. 
+I would recommend enabling the chat command so people can know what has been guessed."
+autowrap = true
+
+[node name="GuessedLettersRight" type="CheckBox" parent="Settings/TabContainer/Chat Commands"]
+margin_left = 364.0
+margin_top = 206.0
+margin_right = 623.0
+margin_bottom = 246.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 8 )
+text = "Correctly guessed letters"
+expand_icon = true
+
+[node name="LettersRightCommand" type="LineEdit" parent="Settings/TabContainer/Chat Commands/GuessedLettersRight"]
+margin_left = 32.0
+margin_top = 40.0
+margin_right = 280.0
+margin_bottom = 81.0
+custom_fonts/font = ExtResource( 4 )
+text = "!hangmanbot right"
+
+[node name="ShowingRightLetters" type="Label" parent="Settings/TabContainer/Chat Commands/GuessedLettersRight"]
+margin_left = 288.0
+margin_top = 17.0
+margin_right = 640.0
+margin_bottom = 80.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "You disabled showing correctly guessed letters on screen. 
+I would recommend enabling the chat command so people can know what has been guessed."
+autowrap = true
+
+[node name="GuessRequirements" type="CheckBox" parent="Settings/TabContainer/Chat Commands"]
+margin_left = 364.0
+margin_top = 94.0
+margin_right = 623.0
+margin_bottom = 134.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 8 )
+disabled = true
+pressed = true
+text = "Requirements for a guess"
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="GuessRequirementsCommand" type="LineEdit" parent="Settings/TabContainer/Chat Commands/GuessRequirements"]
+margin_left = 32.0
+margin_top = 40.0
+margin_right = 280.0
+margin_bottom = 81.0
+custom_fonts/font = ExtResource( 4 )
+text = "!hangmanbot requirements"
+
+[node name="GuessAmount" type="CheckBox" parent="Settings/TabContainer/Chat Commands"]
+margin_left = 20.0
+margin_top = 318.0
+margin_right = 279.0
+margin_bottom = 358.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 8 )
+text = "Amount of Guesses left"
+expand_icon = true
+
+[node name="LettersRightCommand" type="LineEdit" parent="Settings/TabContainer/Chat Commands/GuessAmount"]
+margin_left = 32.0
+margin_top = 40.0
+margin_right = 280.0
+margin_bottom = 81.0
+custom_fonts/font = ExtResource( 4 )
+text = "!hangmanbot left"
+
+[node name="ShowCommands" type="CheckBox" parent="Settings/TabContainer/Chat Commands"]
+margin_left = 692.0
+margin_top = 94.0
+margin_right = 955.0
+margin_bottom = 134.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 8 )
+text = "Show available commands"
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ShowCommansCommand" type="LineEdit" parent="Settings/TabContainer/Chat Commands/ShowCommands"]
+margin_left = 40.0
+margin_top = 40.0
+margin_right = 280.0
+margin_bottom = 81.0
+custom_fonts/font = ExtResource( 4 )
+text = "!hangmanbot commands"
+
+[node name="Guess Requirements" type="Control" parent="Settings/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 42.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="CheeringBits" type="CheckBox" parent="Settings/TabContainer/Guess Requirements"]
+margin_left = 172.0
+margin_top = 22.0
+margin_right = 431.0
+margin_bottom = 62.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 11 )
+text = "Cheering bits"
+expand_icon = true
+
+[node name="AmountBits" type="SpinBox" parent="Settings/TabContainer/Guess Requirements/CheeringBits"]
+margin_left = 80.0
+margin_top = 48.0
+margin_right = 312.0
+margin_bottom = 104.0
+min_value = 1.0
+max_value = 100000.0
+value = 1.0
+rounded = true
+align = 1
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Guess Requirements/CheeringBits/AmountBits"]
+margin_left = 256.0
+margin_top = 16.0
+margin_right = 521.0
+margin_bottom = 48.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Amount of bits required for one guess"
+
+[node name="Subscribing" type="CheckBox" parent="Settings/TabContainer/Guess Requirements"]
+margin_left = 172.0
+margin_top = 138.0
+margin_right = 431.0
+margin_bottom = 178.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 11 )
+text = "Subscribing"
+expand_icon = true
+
+[node name="TierRequired" type="SpinBox" parent="Settings/TabContainer/Guess Requirements/Subscribing"]
+margin_left = 80.0
+margin_top = 40.0
+margin_right = 312.0
+margin_bottom = 96.0
+min_value = 1.0
+max_value = 3.0
+value = 1.0
+rounded = true
+align = 1
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Guess Requirements/Subscribing/TierRequired"]
+margin_left = 256.0
+margin_top = 16.0
+margin_right = 521.0
+margin_bottom = 48.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Tier required for one guess"
+
+[node name="MonthsRequired" type="SpinBox" parent="Settings/TabContainer/Guess Requirements/Subscribing"]
+margin_left = 80.0
+margin_top = 112.0
+margin_right = 312.0
+margin_bottom = 168.0
+min_value = 1.0
+max_value = 12.0
+value = 1.0
+rounded = true
+align = 1
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Guess Requirements/Subscribing/MonthsRequired"]
+margin_left = 256.0
+margin_top = 16.0
+margin_right = 521.0
+margin_bottom = 48.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Months required for one guess"
+
+[node name="ChatCommand" type="CheckBox" parent="Settings/TabContainer/Guess Requirements"]
+margin_left = 172.0
+margin_top = 317.0
+margin_right = 431.0
+margin_bottom = 357.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 11 )
+text = "Chat command"
+expand_icon = true
+
+[node name="Timeout" type="SpinBox" parent="Settings/TabContainer/Guess Requirements/ChatCommand"]
+margin_left = 80.0
+margin_top = 48.0
+margin_right = 312.0
+margin_bottom = 104.0
+min_value = 1.0
+max_value = 100000.0
+value = 1.0
+rounded = true
+align = 1
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Guess Requirements/ChatCommand/Timeout"]
+margin_left = 256.0
+margin_right = 608.0
+margin_bottom = 65.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Timeout (in seconds) between calling the guess command"
+autowrap = true
+
+[node name="Multitude" type="CheckBox" parent="Settings/TabContainer/Guess Requirements"]
+margin_left = 172.0
+margin_top = 454.0
+margin_right = 423.0
+margin_bottom = 494.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 12 )
+text = "Cheering/subscribing a multitude = Multitude of guesses"
+
+[node name="Exit (Saves)" type="ToolButton" parent="Settings/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 42.0
+margin_right = -4.0
+margin_bottom = 50.0
+
+[node name="HTTPRequest" type="HTTPRequest" parent="Settings"]
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="gui_input" from="Control" to="." method="_on_Control_gui_input"]
+[connection signal="about_to_show" from="ContextMenu" to="ContextMenu" method="_on_ContextMenu_about_to_show"]
+[connection signal="toggled" from="ContextMenu/VBoxContainer/PreviewGame" to="ContextMenu" method="_on_PreviewGame_toggled"]
+[connection signal="toggled" from="ContextMenu/VBoxContainer/PreviewFinish" to="ContextMenu" method="_on_PreviewFinish_toggled"]
+[connection signal="pressed" from="ContextMenu/VBoxContainer/FolderButton" to="ContextMenu" method="_on_FolderButton_pressed"]
+[connection signal="pressed" from="ContextMenu/VBoxContainer/SettingsButton" to="ContextMenu" method="_on_SettingsButton_pressed"]
+[connection signal="draw" from="Settings" to="Settings" method="_on_Settings_draw"]
+[connection signal="tab_selected" from="Settings/TabContainer" to="Settings" method="_on_TabContainer_tab_selected"]
+[connection signal="pressed" from="Settings/TabContainer/Server/Submit" to="Settings" method="_on_Submit_pressed"]
+[connection signal="toggled" from="Settings/TabContainer/Hangman/BuildHangman" to="Settings" method="_on_BuildHangman_toggled"]
+[connection signal="toggled" from="Settings/TabContainer/Hangman/GuessHangman" to="Settings" method="_on_GuessHangman_toggled"]
+[connection signal="toggled" from="Settings/TabContainer/Hangman/GuessedLetters" to="Settings" method="_on_GuessedLetters_toggled"]
+[connection signal="toggled" from="Settings/TabContainer/Hangman/WrongLetters" to="Settings" method="_on_WrongLetters_toggled"]
+[connection signal="ready" from="Settings/TabContainer/Words/ScrollContainer/VBoxContainer" to="Settings" method="_on_VBoxContainer_ready"]
+[connection signal="pressed" from="Settings/TabContainer/Words/OpenCsvFile" to="Settings" method="_on_OpenCsvFile_pressed"]
+[connection signal="file_selected" from="Settings/TabContainer/Words/OpenCsvFile/FileDialog" to="Settings" method="_on_FileDialog_file_selected"]
+[connection signal="gui_input" from="Settings/TabContainer/Words/TextureRect" to="Settings" method="_on_TextureRect_gui_input"]
+[connection signal="pressed" from="Settings/TabContainer/Words/ResetUsed" to="Settings" method="_on_ResetUsed_pressed"]
+[connection signal="pressed" from="Settings/TabContainer/Words/ResetWords" to="Settings" method="_on_ResetWords_pressed"]
+[connection signal="confirmed" from="Settings/TabContainer/Words/ResetDialog" to="Settings" method="_on_ResetDialog_confirmed"]
+[connection signal="request_completed" from="Settings/HTTPRequest" to="Settings" method="_on_HTTPRequest_request_completed"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]

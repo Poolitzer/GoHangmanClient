@@ -1,0 +1,1021 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Fonts/Roboto-Light.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Startup.gd" type="Script" id=2]
+[ext_resource path="res://Fonts/30Font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Fonts/25Font.tres" type="DynamicFont" id=4]
+[ext_resource path="res://showcase.png" type="Texture" id=5]
+[ext_resource path="res://question-mark-button-svgrepo-com.svg" type="Texture" id=6]
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.411765, 0.411765, 0.411765, 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 20
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 20
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=7]
+font_data = ExtResource( 1 )
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+custom_styles/panel = SubResource( 8 )
+
+[node name="Intro" type="Label" parent="Panel"]
+margin_top = 16.0
+margin_right = 1024.0
+margin_bottom = 64.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "Hi. Thank you for trying out Hangman."
+align = 1
+
+[node name="Explanation" type="Label" parent="Panel/Intro"]
+margin_left = 8.0
+margin_top = 64.0
+margin_right = 1016.0
+margin_bottom = 192.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Quite some initial setup questions will follow, so bring along like 10 minutes or so. If you abort this setup before pressing finish, you will have to go through all those questions again, not recommended!"
+align = 1
+autowrap = true
+
+[node name="Button" type="Button" parent="Panel/Intro"]
+margin_left = 776.0
+margin_top = 504.0
+margin_right = 992.0
+margin_bottom = 560.0
+text = "Continue"
+
+[node name="TextureRect" type="TextureRect" parent="Panel/Intro"]
+margin_left = 296.0
+margin_top = 176.0
+margin_right = 1313.0
+margin_bottom = 771.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 5 )
+stretch_mode = 1
+
+[node name="Label" type="Label" parent="Panel/Intro"]
+margin_left = 40.0
+margin_top = 472.0
+margin_right = 684.0
+margin_bottom = 503.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "This is just an example, almost everything is customizable!
+
+You can change any settings after finishing this dialogue as well, right click!"
+
+[node name="Server_URL" type="LineEdit" parent="Panel"]
+visible = false
+margin_left = 304.0
+margin_top = 120.0
+margin_right = 664.0
+margin_bottom = 208.0
+custom_fonts/font = SubResource( 4 )
+text = "https://poolitzer.eu/twitchHangman"
+align = 1
+placeholder_text = "URL"
+
+[node name="Header" type="RichTextLabel" parent="Panel/Server_URL"]
+margin_left = -296.0
+margin_top = -112.0
+margin_right = 712.0
+margin_bottom = -16.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = ExtResource( 3 )
+bbcode_enabled = true
+bbcode_text = "[center]You need access to a [url=https://github.com/poolitzer]Backend Server[/url]. Paste the URL below and the key you got from the server administrator.[/center]"
+text = "You need access to a Backend Server. Paste the URL below and the key you got from the server administrator."
+
+[node name="Key" type="LineEdit" parent="Panel/Server_URL"]
+margin_top = 128.0
+margin_right = 360.0
+margin_bottom = 216.0
+custom_fonts/font = SubResource( 4 )
+align = 1
+placeholder_text = "Key"
+
+[node name="Submit" type="Button" parent="Panel/Server_URL"]
+margin_left = 88.0
+margin_top = 256.0
+margin_right = 304.0
+margin_bottom = 312.0
+text = "Submit"
+
+[node name="Button" type="Button" parent="Panel/Server_URL"]
+margin_left = 456.0
+margin_top = 384.0
+margin_right = 672.0
+margin_bottom = 440.0
+disabled = true
+text = "Continue"
+
+[node name="Label" type="Label" parent="Panel/Server_URL"]
+visible = false
+margin_left = 40.0
+margin_top = 392.0
+margin_right = 341.0
+margin_bottom = 440.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "Sucessfully connected!"
+
+[node name="TypeHangman" type="Label" parent="Panel"]
+visible = false
+margin_top = 16.0
+margin_right = 1024.0
+margin_bottom = 64.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "What type of hangman game do you want to play?"
+align = 1
+
+[node name="BuildHangman" type="CheckBox" parent="Panel/TypeHangman"]
+margin_left = 168.0
+margin_top = 240.0
+margin_right = 427.0
+margin_bottom = 280.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "Just building the hangman"
+expand_icon = true
+
+[node name="GuessHangman" type="CheckBox" parent="Panel/TypeHangman"]
+margin_left = 576.0
+margin_top = 240.0
+margin_right = 835.0
+margin_bottom = 280.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 5 )
+pressed = true
+text = "Actually guessing words"
+expand_icon = true
+
+[node name="ContinueType" type="Button" parent="Panel/TypeHangman"]
+margin_left = 776.0
+margin_top = 504.0
+margin_right = 992.0
+margin_bottom = 560.0
+text = "Continue"
+
+[node name="WordSource" type="Label" parent="Panel"]
+visible = false
+margin_top = 32.0
+margin_right = 1024.0
+margin_bottom = 80.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "Do you want to input your own words or get random ones."
+align = 1
+
+[node name="RandomWords" type="CheckBox" parent="Panel/WordSource"]
+margin_left = 168.0
+margin_top = 240.0
+margin_right = 427.0
+margin_bottom = 280.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "Random words"
+expand_icon = true
+
+[node name="OwnWords" type="CheckBox" parent="Panel/WordSource"]
+margin_left = 576.0
+margin_top = 240.0
+margin_right = 835.0
+margin_bottom = 280.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 5 )
+pressed = true
+text = "Input your own words"
+expand_icon = true
+
+[node name="ContinueWordSource" type="Button" parent="Panel/WordSource"]
+margin_left = 776.0
+margin_top = 504.0
+margin_right = 992.0
+margin_bottom = 560.0
+text = "Continue"
+
+[node name="BackWordSource" type="Button" parent="Panel/WordSource"]
+margin_left = 32.0
+margin_top = 504.0
+margin_right = 248.0
+margin_bottom = 560.0
+text = "Back"
+
+[node name="InputWord" type="Label" parent="Panel"]
+visible = false
+margin_top = 32.0
+margin_right = 1016.0
+margin_bottom = 80.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "Input the words you want to guess, with a maximum of 11 characters"
+align = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/InputWord"]
+margin_left = 400.0
+margin_top = 48.0
+margin_right = 616.0
+margin_bottom = 320.0
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/InputWord/ScrollContainer"]
+margin_right = 200.0
+margin_bottom = 146.0
+rect_min_size = Vector2( 200, 0 )
+
+[node name="LineEdit0" type="LineEdit" parent="Panel/InputWord/ScrollContainer/VBoxContainer"]
+margin_right = 200.0
+margin_bottom = 46.0
+custom_fonts/font = ExtResource( 3 )
+max_length = 11
+placeholder_text = "Hello-World"
+
+[node name="LineEdit1" type="LineEdit" parent="Panel/InputWord/ScrollContainer/VBoxContainer"]
+margin_top = 50.0
+margin_right = 200.0
+margin_bottom = 96.0
+custom_fonts/font = ExtResource( 3 )
+max_length = 11
+placeholder_text = "Button"
+
+[node name="LineEdit2" type="LineEdit" parent="Panel/InputWord/ScrollContainer/VBoxContainer"]
+margin_top = 100.0
+margin_right = 200.0
+margin_bottom = 146.0
+custom_fonts/font = ExtResource( 3 )
+max_length = 11
+placeholder_text = "Pool"
+
+[node name="OpenCsvFile" type="Button" parent="Panel/InputWord"]
+margin_left = 360.0
+margin_top = 336.0
+margin_right = 624.0
+margin_bottom = 400.0
+hint_tooltip = "Press on the question mark to learn more about the expected format."
+text = "Open .csv file"
+
+[node name="FileDialog" type="FileDialog" parent="Panel/InputWord/OpenCsvFile"]
+margin_left = -224.0
+margin_top = -272.0
+margin_right = 536.0
+margin_bottom = 160.0
+window_title = "Open a File"
+mode = 0
+access = 2
+filters = PoolStringArray( "*.csv" )
+
+[node name="AppendRandom" type="CheckBox" parent="Panel/InputWord"]
+margin_left = 272.0
+margin_top = 440.0
+margin_right = 741.0
+margin_bottom = 480.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 5 )
+pressed = true
+text = "Append random words if yours have been guessed"
+expand_icon = true
+
+[node name="ContinueInputWord" type="Button" parent="Panel/InputWord"]
+margin_left = 776.0
+margin_top = 504.0
+margin_right = 992.0
+margin_bottom = 560.0
+text = "Continue"
+
+[node name="BackInputWord" type="Button" parent="Panel/InputWord"]
+margin_left = 32.0
+margin_top = 504.0
+margin_right = 248.0
+margin_bottom = 560.0
+text = "Back"
+
+[node name="TextureRect" type="TextureRect" parent="Panel/InputWord"]
+margin_left = 640.0
+margin_top = 344.0
+margin_right = 1062.0
+margin_bottom = 766.0
+rect_scale = Vector2( 0.1, 0.1 )
+hint_tooltip = "Click me."
+texture = ExtResource( 6 )
+
+[node name="HintDialog" type="WindowDialog" parent="Panel/InputWord"]
+margin_left = 96.0
+margin_top = 51.0
+margin_right = 952.0
+margin_bottom = 499.0
+window_title = "About the .csv file."
+
+[node name="Label" type="Label" parent="Panel/InputWord/HintDialog"]
+margin_right = 856.0
+margin_bottom = 448.0
+text = "
+The .csv file expected could be one from a different instance of this client or one you made yourself. You do not need to submit one, filling words in manually or just using the random ones is totally fine.
+
+The first columns of the csv is the word itself, the second one if it was already used (1) or not (0). You can reset all of them to 0 in the right click menu once you finished the setup.
+
+The expected delimiter is the ,. If you use it in your word, wrap the word in enclosing quotes. If you want to use a quote, double quote it. 
+Example:
+
+\"Hello-World\",1
+Owo,0
+Cool,1
+With\"\"Quote,1
+\"Owo,Owo\",0"
+autowrap = true
+
+[node name="ShowGuesses" type="Label" parent="Panel"]
+visible = false
+margin_top = 32.0
+margin_right = 1024.0
+margin_bottom = 80.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "Do you want to show the guessed word on screen? And the wrong guesses?"
+align = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/ShowGuesses"]
+margin_left = 296.0
+margin_top = 96.0
+margin_right = 1313.0
+margin_bottom = 691.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 5 )
+stretch_mode = 1
+
+[node name="GuessedLetters" type="CheckBox" parent="Panel/ShowGuesses"]
+margin_left = 160.0
+margin_top = 368.0
+margin_right = 419.0
+margin_bottom = 408.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 5 )
+pressed = true
+text = "Show guessed letters"
+expand_icon = true
+
+[node name="WrongLetters" type="CheckBox" parent="Panel/ShowGuesses"]
+margin_left = 584.0
+margin_top = 368.0
+margin_right = 843.0
+margin_bottom = 408.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 5 )
+pressed = true
+text = "Show wrong guesses"
+expand_icon = true
+
+[node name="CountAlreadyGuessed" type="CheckBox" parent="Panel/ShowGuesses"]
+margin_left = 336.0
+margin_top = 432.0
+margin_right = 620.0
+margin_bottom = 472.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 5 )
+pressed = true
+text = "Count already guessed letters"
+expand_icon = true
+
+[node name="ContinueShowGuesses" type="Button" parent="Panel/ShowGuesses"]
+margin_left = 776.0
+margin_top = 504.0
+margin_right = 992.0
+margin_bottom = 560.0
+text = "Continue"
+
+[node name="BackShowGuesses" type="Button" parent="Panel/ShowGuesses"]
+margin_left = 32.0
+margin_top = 504.0
+margin_right = 248.0
+margin_bottom = 560.0
+text = "Back"
+
+[node name="Label" type="Label" parent="Panel/ShowGuesses"]
+margin_left = 96.0
+margin_top = 104.0
+margin_right = 301.0
+margin_bottom = 135.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Guessed letters =>"
+
+[node name="Label2" type="Label" parent="Panel/ShowGuesses"]
+margin_left = 688.0
+margin_top = 256.0
+margin_right = 892.0
+margin_bottom = 287.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "<= Wrong guesses"
+
+[node name="AmountGuesses" type="Label" parent="Panel"]
+visible = false
+margin_top = 16.0
+margin_right = 1024.0
+margin_bottom = 64.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "How many guesses do you want to have in the game?"
+align = 1
+
+[node name="SpinBox" type="SpinBox" parent="Panel/AmountGuesses"]
+margin_left = 408.0
+margin_top = 168.0
+margin_right = 648.0
+margin_bottom = 232.0
+min_value = 1.0
+max_value = 12.0
+value = 11.0
+rounded = true
+align = 1
+
+[node name="ContinueAmountGuesses" type="Button" parent="Panel/AmountGuesses"]
+margin_left = 776.0
+margin_top = 504.0
+margin_right = 992.0
+margin_bottom = 560.0
+text = "Continue"
+
+[node name="BackAmountGuesses" type="Button" parent="Panel/AmountGuesses"]
+margin_left = 32.0
+margin_top = 504.0
+margin_right = 248.0
+margin_bottom = 560.0
+text = "Back"
+
+[node name="Label" type="Label" parent="Panel/AmountGuesses"]
+margin_left = 64.0
+margin_top = 280.0
+margin_right = 1016.0
+margin_bottom = 392.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Amount of guesses/how hard you want it to be to guess a word. 1-12.
+
+If you put 12, nothing will be shown initially and the first guess will spawn the arc."
+align = 1
+autowrap = true
+
+[node name="TypeGuesses" type="Label" parent="Panel"]
+visible = false
+margin_top = 8.0
+margin_right = 1024.0
+margin_bottom = 56.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "How do you want your viewers to guess"
+align = 1
+
+[node name="CheeringBits" type="CheckBox" parent="Panel/TypeGuesses"]
+margin_left = 128.0
+margin_top = 55.0
+margin_right = 387.0
+margin_bottom = 95.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "Cheering bits"
+expand_icon = true
+
+[node name="AmountBits" type="SpinBox" parent="Panel/TypeGuesses/CheeringBits"]
+margin_left = 80.0
+margin_top = 48.0
+margin_right = 312.0
+margin_bottom = 104.0
+min_value = 1.0
+max_value = 100000.0
+value = 1.0
+rounded = true
+align = 1
+
+[node name="Label" type="Label" parent="Panel/TypeGuesses/CheeringBits/AmountBits"]
+margin_left = 256.0
+margin_top = 16.0
+margin_right = 521.0
+margin_bottom = 48.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Amount of bits required for one guess"
+
+[node name="Subscribing" type="CheckBox" parent="Panel/TypeGuesses"]
+margin_left = 128.0
+margin_top = 171.0
+margin_right = 387.0
+margin_bottom = 211.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "Subscribing"
+expand_icon = true
+
+[node name="TierRequired" type="SpinBox" parent="Panel/TypeGuesses/Subscribing"]
+margin_left = 80.0
+margin_top = 40.0
+margin_right = 312.0
+margin_bottom = 96.0
+min_value = 1.0
+max_value = 3.0
+value = 1.0
+rounded = true
+align = 1
+
+[node name="Label" type="Label" parent="Panel/TypeGuesses/Subscribing/TierRequired"]
+margin_left = 256.0
+margin_top = 16.0
+margin_right = 521.0
+margin_bottom = 48.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Tier required for one guess"
+
+[node name="MonthsRequired" type="SpinBox" parent="Panel/TypeGuesses/Subscribing"]
+margin_left = 80.0
+margin_top = 112.0
+margin_right = 312.0
+margin_bottom = 168.0
+min_value = 1.0
+max_value = 12.0
+value = 1.0
+rounded = true
+align = 1
+
+[node name="Label" type="Label" parent="Panel/TypeGuesses/Subscribing/MonthsRequired"]
+margin_left = 256.0
+margin_top = 16.0
+margin_right = 521.0
+margin_bottom = 48.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Months required for one guess"
+
+[node name="ChatCommand" type="CheckBox" parent="Panel/TypeGuesses"]
+margin_left = 128.0
+margin_top = 350.0
+margin_right = 387.0
+margin_bottom = 390.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "Chat command"
+expand_icon = true
+
+[node name="Timeout" type="SpinBox" parent="Panel/TypeGuesses/ChatCommand"]
+margin_left = 80.0
+margin_top = 48.0
+margin_right = 312.0
+margin_bottom = 104.0
+min_value = 1.0
+max_value = 100000.0
+value = 1.0
+rounded = true
+align = 1
+
+[node name="Label" type="Label" parent="Panel/TypeGuesses/ChatCommand/Timeout"]
+margin_left = 256.0
+margin_right = 608.0
+margin_bottom = 65.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Timeout (in seconds) between calling the guess command"
+autowrap = true
+
+[node name="ContinueTypeGuesses" type="Button" parent="Panel/TypeGuesses"]
+margin_left = 776.0
+margin_top = 504.0
+margin_right = 992.0
+margin_bottom = 560.0
+disabled = true
+text = "Continue"
+
+[node name="BackTypeGuesses" type="Button" parent="Panel/TypeGuesses"]
+margin_left = 32.0
+margin_top = 504.0
+margin_right = 248.0
+margin_bottom = 560.0
+text = "Back"
+
+[node name="Multitude" type="Label" parent="Panel"]
+visible = false
+margin_top = 32.0
+margin_right = 1024.0
+margin_bottom = 80.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "Should cheering a multiple of bits or subscribing a multiple of times/higher tier trigger a multitude of guessed?"
+align = 1
+autowrap = true
+
+[node name="Explanation" type="Label" parent="Panel/Multitude"]
+margin_left = 24.0
+margin_top = 96.0
+margin_right = 1032.0
+margin_bottom = 263.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Examples if activated:
+* Set: 10 Bits. Someone cheers for 100 bits. They get 10 guesses.
+* Set: Tier 1, Month 6. Someone subscribes for 12 Months at Tier 2. They get 4 guesses
+* Set: Tier 2, Month 1. Someone subscribes for 6 Months at Tier 1. They get 1 guess.
+"
+autowrap = true
+
+[node name="MultitudeBox" type="CheckBox" parent="Panel/Multitude"]
+margin_left = 392.0
+margin_top = 328.0
+margin_right = 624.0
+margin_bottom = 368.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 5 )
+pressed = true
+text = "Multitude = More guesses"
+expand_icon = true
+
+[node name="ContinueMultitude" type="Button" parent="Panel/Multitude"]
+margin_left = 776.0
+margin_top = 504.0
+margin_right = 992.0
+margin_bottom = 560.0
+text = "Continue"
+
+[node name="BackMultitude" type="Button" parent="Panel/Multitude"]
+margin_left = 32.0
+margin_top = 504.0
+margin_right = 248.0
+margin_bottom = 560.0
+text = "Back"
+
+[node name="Chat" type="Label" parent="Panel"]
+visible = false
+margin_top = 8.0
+margin_right = 1024.0
+margin_bottom = 56.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "Do you want to enable extended twitch chat functionality"
+align = 1
+
+[node name="Explanation" type="Label" parent="Panel/Chat"]
+margin_left = 8.0
+margin_top = 40.0
+margin_right = 1016.0
+margin_bottom = 91.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "The guesses themselves will always be via chat. They must be added after the command + space. The guess command as well as the requirements can not be unset, the bot will link to them in fitting messages."
+align = 1
+autowrap = true
+
+[node name="Commands" type="Label" parent="Panel/Chat"]
+margin_right = 40.0
+margin_bottom = 14.0
+
+[node name="ExplainBot" type="CheckBox" parent="Panel/Chat/Commands"]
+margin_left = 40.0
+margin_top = 239.0
+margin_right = 299.0
+margin_bottom = 279.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "Explain the bot"
+expand_icon = true
+
+[node name="ExplainBotCommand" type="LineEdit" parent="Panel/Chat/Commands/ExplainBot"]
+margin_left = 32.0
+margin_top = 40.0
+margin_right = 280.0
+margin_bottom = 81.0
+custom_fonts/font = ExtResource( 4 )
+text = "!hangmanbot"
+
+[node name="Guess" type="CheckBox" parent="Panel/Chat/Commands"]
+margin_left = 40.0
+margin_top = 128.0
+margin_right = 299.0
+margin_bottom = 168.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 5 )
+disabled = true
+pressed = true
+text = "Guess"
+expand_icon = true
+
+[node name="GuessCommand" type="LineEdit" parent="Panel/Chat/Commands/Guess"]
+margin_left = 32.0
+margin_top = 40.0
+margin_right = 280.0
+margin_bottom = 81.0
+custom_fonts/font = ExtResource( 4 )
+text = "!guess"
+
+[node name="GuessedLettersWrong" type="CheckBox" parent="Panel/Chat/Commands"]
+margin_left = 384.0
+margin_top = 352.0
+margin_right = 643.0
+margin_bottom = 392.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "Wrongly guessed letters"
+expand_icon = true
+
+[node name="LettersWrongCommand" type="LineEdit" parent="Panel/Chat/Commands/GuessedLettersWrong"]
+margin_left = 32.0
+margin_top = 40.0
+margin_right = 280.0
+margin_bottom = 81.0
+custom_fonts/font = ExtResource( 4 )
+text = "!wrong"
+
+[node name="ShowingWrongLetters" type="Label" parent="Panel/Chat/Commands/GuessedLettersWrong"]
+margin_left = 288.0
+margin_top = 17.0
+margin_right = 640.0
+margin_bottom = 80.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "You disabled showing wrongly guessed letters on screen. 
+I would recommend enabling the chat command so people can know what has been guessed."
+autowrap = true
+
+[node name="GuessedLettersRight" type="CheckBox" parent="Panel/Chat/Commands"]
+margin_left = 384.0
+margin_top = 240.0
+margin_right = 643.0
+margin_bottom = 280.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "Correctly guessed letters"
+expand_icon = true
+
+[node name="LettersRightCommand" type="LineEdit" parent="Panel/Chat/Commands/GuessedLettersRight"]
+margin_left = 32.0
+margin_top = 40.0
+margin_right = 280.0
+margin_bottom = 81.0
+custom_fonts/font = ExtResource( 4 )
+text = "!hangmanbot right"
+
+[node name="ShowingRightLetters" type="Label" parent="Panel/Chat/Commands/GuessedLettersRight"]
+margin_left = 288.0
+margin_top = 17.0
+margin_right = 640.0
+margin_bottom = 80.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "You disabled showing correctly guessed letters on screen. 
+I would recommend enabling the chat command so people can know what has been guessed."
+autowrap = true
+
+[node name="GuessRequirements" type="CheckBox" parent="Panel/Chat/Commands"]
+margin_left = 384.0
+margin_top = 128.0
+margin_right = 643.0
+margin_bottom = 168.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 5 )
+disabled = true
+pressed = true
+text = "Requirements for a guess"
+expand_icon = true
+
+[node name="GuessRequirementsCommand" type="LineEdit" parent="Panel/Chat/Commands/GuessRequirements"]
+margin_left = 32.0
+margin_top = 40.0
+margin_right = 280.0
+margin_bottom = 81.0
+custom_fonts/font = ExtResource( 4 )
+text = "!hangmanbot requirements"
+
+[node name="GuessAmount" type="CheckBox" parent="Panel/Chat/Commands"]
+margin_left = 40.0
+margin_top = 352.0
+margin_right = 299.0
+margin_bottom = 392.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "Amount of Guesses left"
+expand_icon = true
+
+[node name="LettersRightCommand" type="LineEdit" parent="Panel/Chat/Commands/GuessAmount"]
+margin_left = 32.0
+margin_top = 40.0
+margin_right = 280.0
+margin_bottom = 81.0
+custom_fonts/font = ExtResource( 4 )
+text = "!hangmanbot left"
+
+[node name="ShowCommands" type="CheckBox" parent="Panel/Chat/Commands"]
+margin_left = 712.0
+margin_top = 128.0
+margin_right = 975.0
+margin_bottom = 168.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "Show available commands"
+expand_icon = true
+
+[node name="ShowCommansCommand" type="LineEdit" parent="Panel/Chat/Commands/ShowCommands"]
+margin_left = 40.0
+margin_top = 40.0
+margin_right = 280.0
+margin_bottom = 81.0
+custom_fonts/font = ExtResource( 4 )
+text = "!hangmanbot commands"
+
+[node name="ContinueChat" type="Button" parent="Panel/Chat"]
+margin_left = 776.0
+margin_top = 504.0
+margin_right = 992.0
+margin_bottom = 560.0
+text = "Continue"
+
+[node name="BackChat" type="Button" parent="Panel/Chat"]
+margin_left = 32.0
+margin_top = 504.0
+margin_right = 248.0
+margin_bottom = 560.0
+text = "Back"
+
+[node name="Finish" type="Label" parent="Panel"]
+visible = false
+margin_top = 16.0
+margin_right = 1024.0
+margin_bottom = 64.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "You finished the setup!"
+align = 1
+
+[node name="Explanation" type="Label" parent="Panel/Finish"]
+margin_left = 8.0
+margin_top = 168.0
+margin_right = 1016.0
+margin_bottom = 296.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Take a deep breath, you have done it! Once you press this last continue button, the settings will be saved and you have everything ready to go. Use the right-click menu to activate preview mode and scale everything according to your wished, or to further change settings if you want to. Maybe also make a backup of the settings file, the folder is linked in the context menu."
+align = 1
+autowrap = true
+
+[node name="ContinueFinish" type="Button" parent="Panel/Finish"]
+margin_left = 776.0
+margin_top = 504.0
+margin_right = 992.0
+margin_bottom = 560.0
+text = "Continue"
+
+[node name="BackFinish" type="Button" parent="Panel/Finish"]
+margin_left = 32.0
+margin_top = 504.0
+margin_right = 248.0
+margin_bottom = 560.0
+text = "Back"
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="ErrorDialog" type="AcceptDialog" parent="."]
+margin_left = 264.0
+margin_top = 144.0
+margin_right = 656.0
+margin_bottom = 352.0
+window_title = "Authorization Failed"
+dialog_text = "The server returned the following error:
+
+"
+
+[connection signal="pressed" from="Panel/Intro/Button" to="." method="_on_Continue_pressed"]
+[connection signal="text_entered" from="Panel/Server_URL" to="." method="_on_text_entered"]
+[connection signal="meta_clicked" from="Panel/Server_URL/Header" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="text_entered" from="Panel/Server_URL/Key" to="." method="_on_text_entered"]
+[connection signal="pressed" from="Panel/Server_URL/Submit" to="." method="_on_Submit_pressed"]
+[connection signal="pressed" from="Panel/Server_URL/Button" to="." method="_on_Continue_pressed"]
+[connection signal="toggled" from="Panel/TypeHangman/BuildHangman" to="." method="_on_BuildHangman_toggled"]
+[connection signal="toggled" from="Panel/TypeHangman/GuessHangman" to="." method="_on_GuessHangman_toggled"]
+[connection signal="pressed" from="Panel/TypeHangman/ContinueType" to="." method="_on_ContinueType_pressed"]
+[connection signal="toggled" from="Panel/WordSource/RandomWords" to="." method="_on_RandomWords_toggled"]
+[connection signal="toggled" from="Panel/WordSource/OwnWords" to="." method="_on_OwnWords_toggled"]
+[connection signal="pressed" from="Panel/WordSource/ContinueWordSource" to="." method="_on_ContinueWordSource_pressed"]
+[connection signal="pressed" from="Panel/WordSource/BackWordSource" to="." method="_on_BackWordSource_pressed"]
+[connection signal="ready" from="Panel/InputWord/ScrollContainer/VBoxContainer" to="." method="_on_VBoxContainer_ready"]
+[connection signal="pressed" from="Panel/InputWord/OpenCsvFile" to="." method="_on_OpenCsvFile_pressed"]
+[connection signal="file_selected" from="Panel/InputWord/OpenCsvFile/FileDialog" to="." method="_on_FileDialog_file_selected"]
+[connection signal="pressed" from="Panel/InputWord/ContinueInputWord" to="." method="_on_ContinueInputWord_pressed"]
+[connection signal="pressed" from="Panel/InputWord/BackInputWord" to="." method="_on_BackInputWord_pressed"]
+[connection signal="gui_input" from="Panel/InputWord/TextureRect" to="." method="_on_TextureRect_gui_input"]
+[connection signal="pressed" from="Panel/ShowGuesses/ContinueShowGuesses" to="." method="_on_ContinueShowGuesses_pressed"]
+[connection signal="pressed" from="Panel/ShowGuesses/BackShowGuesses" to="." method="_on_BackShowGuesses_pressed"]
+[connection signal="pressed" from="Panel/AmountGuesses/ContinueAmountGuesses" to="." method="_on_ContinueAmountGuesses_pressed"]
+[connection signal="pressed" from="Panel/AmountGuesses/BackAmountGuesses" to="." method="_on_BackAmountGuesses_pressed"]
+[connection signal="pressed" from="Panel/TypeGuesses/CheeringBits" to="." method="_on_TypeCheckbox_pressed"]
+[connection signal="pressed" from="Panel/TypeGuesses/Subscribing" to="." method="_on_TypeCheckbox_pressed"]
+[connection signal="pressed" from="Panel/TypeGuesses/ChatCommand" to="." method="_on_TypeCheckbox_pressed"]
+[connection signal="pressed" from="Panel/TypeGuesses/ContinueTypeGuesses" to="." method="_on_ContinueTypeGuesses_pressed"]
+[connection signal="pressed" from="Panel/TypeGuesses/BackTypeGuesses" to="." method="_on_BackTypeGuesses_pressed"]
+[connection signal="pressed" from="Panel/Multitude/ContinueMultitude" to="." method="_on_ContinueMultitude_pressed"]
+[connection signal="pressed" from="Panel/Multitude/BackMultitude" to="." method="_on_BackMultitude_pressed"]
+[connection signal="draw" from="Panel/Chat" to="." method="_on_Chat_draw"]
+[connection signal="pressed" from="Panel/Chat/ContinueChat" to="." method="_on_ContinueChat_pressed"]
+[connection signal="pressed" from="Panel/Chat/BackChat" to="." method="_on_BackChat_pressed"]
+[connection signal="pressed" from="Panel/Finish/ContinueFinish" to="." method="_on_ContinueFinish_pressed"]
+[connection signal="pressed" from="Panel/Finish/BackFinish" to="." method="_on_BackFinish_pressed"]
+[connection signal="popup_hide" from="ErrorDialog" to="." method="_on_ErrorDialog_popup_hide"]
