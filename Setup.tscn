@@ -99,7 +99,7 @@ margin_bottom = -16.0
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
-bbcode_text = "[center]You need access to a [url=https://github.com/poolitzer]Backend Server[/url]. Paste the URL below and the key you got from the server administrator.[/center]"
+bbcode_text = "[center]You need access to a [url=https://github.com/Poolitzer/GoHangmanServer]Backend Server[/url]. Paste the URL below and the key you got from the server administrator.[/center]"
 text = "You need access to a Backend Server. Paste the URL below and the key you got from the server administrator."
 
 [node name="Key" type="LineEdit" parent="Panel/Server_URL"]
