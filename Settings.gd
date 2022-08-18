@@ -17,7 +17,9 @@ func _ready():
 func _on_TabContainer_tab_selected(tab):
 	# we set Exit to be the last tab selected, and then set in there all the config
 	if tab == $TabContainer.get_child_count()-1:
-		# $TabContainer.set_current_tab(0)
+		# we need to sleep for the spinboxes to save their current value
+		# to the value property
+		yield(get_tree().create_timer(0.01), "timeout")
 		# color
 		config_.colour_background = $TabContainer/Colours/Background.color
 		config_.colour_hangman =  $TabContainer/Colours/Hangman.color
@@ -34,12 +36,6 @@ func _on_TabContainer_tab_selected(tab):
 		config_.show_guess = $TabContainer/Hangman/GuessedLetters.pressed
 		config_.show_wrong = $TabContainer/Hangman/WrongLetters.pressed
 		config_.count_already = $TabContainer/Hangman/CountAlreadyGuessed.pressed
-		# reset the word if the amount of guesses changed
-		if config_.amount_guess != int($TabContainer/Hangman/SpinBox.value):
-			config_.amount_guess = int($TabContainer/Hangman/SpinBox.value)
-			config_.wrong_guessed_chars = PoolStringArray([])
-			config_.guessed_chars = PoolStringArray([])
-			config_.current_guessers = {}
 		# chat commands
 		config_.commands = {}
 		for child in $"TabContainer/Chat Commands".get_children():
@@ -50,37 +46,46 @@ func _on_TabContainer_tab_selected(tab):
 					$"/root/MainStart/ErrorDialog".dialog_text = "The command at " + child.text + " is empty, which can not work..."
 					$"/root/MainStart/ErrorDialog".popup()
 					return
+				if text in config_.commands:
+					$"/root/MainStart/ErrorDialog".dialog_text = "The command at " + child.text + " was already used, which can not work..."
+					$"/root/MainStart/ErrorDialog".popup()
+					return
+				if child.name.to_lower() == "guesscosts":
+					$"/root/MainStart".set("costs_command", text)
+				elif child.name.to_lower() == "guess":
+					$"/root/MainStart".set("guess_command", text)
 				config_.commands[text] = child.name.to_lower()
 		# words
 		var words = $"/root/MainStart".get("words")
 		for child in $TabContainer/Words/ScrollContainer/VBoxContainer.get_children():
 			if child.text:
-				words[child.text] = 0
+				words[child.text.to_lower()] = 0
 		for word in words_from_file:
-			words[word] = words_from_file[word]
+			words[word.to_lower()] = int(words_from_file[word])
 		$"/root/MainStart".set("words", words)
 		if config_.current_word != $TabContainer/Words/CurrentWord.text:
-			config_.current_word = $TabContainer/Words/CurrentWord.text
+			config_.current_word = $TabContainer/Words/CurrentWord.text.to_lower()
 			config_.wrong_guessed_chars = PoolStringArray([])
 			config_.guessed_chars = PoolStringArray([])
 			config_.current_guessers = {}
 		config_.random_words = $TabContainer/Words/AppendRandom.pressed
-		# guess requirements
-		if $"TabContainer/Guess Requirements/CheeringBits".pressed:
-			config_.amount_bits = $"TabContainer/Guess Requirements/CheeringBits/AmountBits".value
-		else:
+		# guess costs
+		if not $"TabContainer/Guess Costs/CheeringBits".pressed:
 			config_.amount_bits = 0
-		if $"TabContainer/Guess Requirements/Subscribing".pressed:
-			config_.amount_tier = $"TabContainer/Guess Requirements/Subscribing/TierRequired".value
-			config_.amount_months = $"TabContainer/Guess Requirements/Subscribing/MonthsRequired".value
-		else:
+		if not $"TabContainer/Guess Costs/Subscribing".pressed:
 			config_.amount_tier = 0
 			config_.amount_months = 0
-		if $"TabContainer/Guess Requirements/ChatCommand".pressed:
-			config_.amount_timeout = $"TabContainer/Guess Requirements/ChatCommand/Timeout".value
-		else:
+		if not $"TabContainer/Guess Costs/ChatCommand".pressed:
 			config_.amount_timeout = 0
-		config_.multitude = $"TabContainer/Guess Requirements/Multitude".pressed
+		config_.multitude = $"TabContainer/Guess Costs/Multitude".pressed
+		var temp_limits = []
+		if $"TabContainer/Guess Costs/Streamer".pressed:
+			temp_limits.append("broadcaster")
+		if $"TabContainer/Guess Costs/Moderators".pressed:
+			temp_limits.append("moderator")
+		if $"TabContainer/Guess Costs/VIPs".pressed:
+			temp_limits.append("vip")
+		config_.dont_limit = PoolStringArray(temp_limits)
 		# cleanup/reset
 		$"/root/MainStart".set_colours()
 		$"/root/MainStart".reset_ui()
@@ -130,15 +135,23 @@ func _on_Settings_draw():
 				command_button.pressed = true
 				command_button.get_child(0).text = command_text
 				break
-	# guess requirements tab
-	$"TabContainer/Guess Requirements/CheeringBits".pressed = bool(config_.amount_bits)
-	$"TabContainer/Guess Requirements/CheeringBits/AmountBits".value = config_.amount_bits
-	$"TabContainer/Guess Requirements/Subscribing".pressed = bool(config_.amount_tier)
-	$"TabContainer/Guess Requirements/Subscribing/TierRequired".value = config_.amount_tier
-	$"TabContainer/Guess Requirements/Subscribing/MonthsRequired".value = config_.amount_months
-	$"TabContainer/Guess Requirements/ChatCommand".pressed = bool(config_.amount_timeout)
-	$"TabContainer/Guess Requirements/ChatCommand/Timeout".value = config_.amount_timeout
-	$"TabContainer/Guess Requirements/Multitude".pressed = config_.multitude
+	# guess Costs tab
+	$"TabContainer/Guess Costs/CheeringBits".pressed = bool(config_.amount_bits)
+	$"TabContainer/Guess Costs/CheeringBits/AmountBits".value = config_.amount_bits
+	$"TabContainer/Guess Costs/Subscribing".pressed = bool(config_.amount_tier)
+	$"TabContainer/Guess Costs/Subscribing/TierRequired".value = config_.amount_tier
+	$"TabContainer/Guess Costs/Subscribing/MonthsRequired".value = config_.amount_months
+	$"TabContainer/Guess Costs/ChatCommand".pressed = bool(config_.amount_timeout)
+	$"TabContainer/Guess Costs/ChatCommand/Timeout".value = config_.amount_timeout
+	$"TabContainer/Guess Costs/Multitude".pressed = config_.multitude
+	if config_.dont_limit:
+		for type in config_.dont_limit:
+			if type == "broadcaster":
+				$"TabContainer/Guess Costs/Streamer".pressed = true
+			elif type == "moderator":
+				$"TabContainer/Guess Costs/Moderators".pressed = true
+			else:
+				$"TabContainer/Guess Costs/VIPs".pressed = true
 
 # server tab
 func _on_Submit_pressed():
@@ -204,6 +217,16 @@ func _on_WrongLetters_toggled(button_pressed):
 	$"TabContainer/Chat Commands"/GuessedLettersWrong/ShowingWrongLetters.visible = !button_pressed
 
 
+func _on_SpinBox_value_changed(value):
+	# reset the word if the amount of guesses changed
+	# also this needs to be on signal change to avoid race conditions
+	if config_.amount_guess != int(value):
+		config_.amount_guess = int(value)
+		config_.wrong_guessed_chars = PoolStringArray([])
+		config_.guessed_chars = PoolStringArray([])
+		config_.current_guessers = {}
+
+
 # words logic
 func _on_VBoxContainer_ready():
 	for child in $TabContainer/Words/ScrollContainer/VBoxContainer.get_children():
@@ -260,6 +283,11 @@ func _on_TextureRect_gui_input(event):
 	if (event is InputEventMouseButton && event.pressed && event.button_index == 1):
 		$TabContainer/Words/HintDialog.popup()
 
+func _on_TextureRect2_gui_input(event):
+	if (event is InputEventMouseButton && event.pressed && event.button_index == 1):
+		$TabContainer/Words/CurrentWord.secret = false
+	if (event is InputEventMouseButton && not event.pressed && event.button_index == 1):
+		$TabContainer/Words/CurrentWord.secret = true
 
 func _on_ResetUsed_pressed():
 	var words = $"/root/MainStart".get("words")
@@ -276,3 +304,19 @@ func _on_ResetWords_pressed():
 
 func _on_ResetDialog_confirmed():
 	$"/root/MainStart".set("words", {})
+
+# guess cost slide - all of these need to be on signal to avoid race conditions
+func _on_AmountBits_value_changed(value):
+	config_.amount_bits = int(value)
+
+
+func _on_TierRequired_value_changed(value):
+	config_.amount_tier = int(value)
+
+
+func _on_MonthsRequired_value_changed(value):
+	config_.amount_months = int(value)
+
+
+func _on_Timeout_value_changed(value):
+	config_.amount_timeout = int(value)

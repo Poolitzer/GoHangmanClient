@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Backend.gd" type="Script" id=1]
 [ext_resource path="res://Fonts/ComicNeue-Bold.ttf" type="DynamicFontData" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Fonts/Roboto-Light.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://Fonts/30Font.tres" type="DynamicFont" id=7]
 [ext_resource path="res://question-mark-button-svgrepo-com.svg" type="Texture" id=8]
+[ext_resource path="res://eye-svgrepo-com.svg" type="Texture" id=9]
 
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.298039, 0.298039, 0.298039, 1 )
@@ -57,6 +58,10 @@ size = 20
 font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=12]
+size = 20
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=13]
 size = 20
 font_data = ExtResource( 6 )
 
@@ -707,7 +712,6 @@ margin_bottom = 104.0
 text = "Settings"
 
 [node name="Settings" type="Panel" parent="."]
-visible = false
 margin_right = 1024.0
 margin_bottom = 600.0
 script = ExtResource( 5 )
@@ -731,6 +735,7 @@ margin_left = 220.0
 margin_top = 54.0
 margin_right = 348.0
 margin_bottom = 94.0
+edit_alpha = false
 
 [node name="Label" type="Label" parent="Settings/TabContainer/Colours/Background"]
 margin_left = 136.0
@@ -794,7 +799,7 @@ margin_top = 8.0
 margin_right = 241.0
 margin_bottom = 32.0
 custom_fonts/font = ExtResource( 4 )
-text = "The lines below the wrong guesses"
+text = "Lines below the wrong guesses"
 
 [node name="WrongLetters" type="ColorPickerButton" parent="Settings/TabContainer/Colours"]
 margin_left = 76.0
@@ -977,7 +982,7 @@ custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
 custom_fonts/font = SubResource( 7 )
 pressed = true
-text = "Count already guessed letters"
+text = "Count already guessed letters as wrong guesses"
 expand_icon = true
 
 [node name="SpinBox" type="SpinBox" parent="Settings/TabContainer/Hangman"]
@@ -1001,7 +1006,6 @@ text = "Amount of guesses
 Changing this will reset the current round!"
 
 [node name="Words" type="Control" parent="Settings/TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -1010,12 +1014,14 @@ margin_right = -4.0
 margin_bottom = -4.0
 
 [node name="Label2" type="Label" parent="Settings/TabContainer/Words"]
-margin_left = 172.0
-margin_top = 22.0
-margin_right = 390.0
-margin_bottom = 46.0
+margin_left = 132.0
+margin_top = 14.0
+margin_right = 431.0
+margin_bottom = 65.0
 custom_fonts/font = ExtResource( 4 )
-text = "Append to existing words"
+text = "Append to existing words
+Remember: Maximum of 11 chars"
+align = 1
 
 [node name="CurrentWord" type="LineEdit" parent="Settings/TabContainer/Words"]
 margin_left = 668.0
@@ -1024,6 +1030,7 @@ margin_right = 868.0
 margin_bottom = 116.0
 custom_fonts/font = ExtResource( 7 )
 max_length = 11
+secret = true
 placeholder_text = "CurrentWord"
 
 [node name="Label" type="Label" parent="Settings/TabContainer/Words"]
@@ -1158,7 +1165,7 @@ margin_left = 668.0
 margin_top = 334.0
 margin_right = 868.0
 margin_bottom = 390.0
-text = "Reset words"
+text = "Delete all words!"
 
 [node name="ResetDialog" type="ConfirmationDialog" parent="Settings/TabContainer/Words"]
 margin_left = 292.0
@@ -1172,6 +1179,15 @@ There is no further confirmation. Do or do not.
 
 You can backup the file if you want, you find it in the saves folder of the right click menu."
 dialog_autowrap = true
+
+[node name="TextureRect2" type="TextureRect" parent="Settings/TabContainer/Words"]
+margin_left = 876.0
+margin_top = 68.0
+margin_right = 1436.0
+margin_bottom = 580.0
+rect_scale = Vector2( 0.1, 0.1 )
+hint_tooltip = "Click me."
+texture = ExtResource( 9 )
 
 [node name="Chat Commands" type="Control" parent="Settings/TabContainer"]
 visible = false
@@ -1315,7 +1331,7 @@ custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
 custom_fonts/font = SubResource( 8 )
 disabled = true
 pressed = true
-text = "Requirements for a guess"
+text = "Costs for a guess"
 expand_icon = true
 __meta__ = {
 "_edit_use_anchors_": true
@@ -1327,7 +1343,7 @@ margin_top = 40.0
 margin_right = 280.0
 margin_bottom = 81.0
 custom_fonts/font = ExtResource( 4 )
-text = "!hangmanbot requirements"
+text = "!hangmanbot costs"
 
 [node name="GuessAmount" type="CheckBox" parent="Settings/TabContainer/Chat Commands"]
 margin_left = 20.0
@@ -1378,7 +1394,7 @@ margin_bottom = 81.0
 custom_fonts/font = ExtResource( 4 )
 text = "!hangmanbot commands"
 
-[node name="Guess Requirements" type="Control" parent="Settings/TabContainer"]
+[node name="Guess Costs" type="Control" parent="Settings/TabContainer"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1387,10 +1403,10 @@ margin_top = 42.0
 margin_right = -4.0
 margin_bottom = -4.0
 
-[node name="CheeringBits" type="CheckBox" parent="Settings/TabContainer/Guess Requirements"]
-margin_left = 172.0
+[node name="CheeringBits" type="CheckBox" parent="Settings/TabContainer/Guess Costs"]
+margin_left = 36.0
 margin_top = 22.0
-margin_right = 431.0
+margin_right = 295.0
 margin_bottom = 62.0
 custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
 custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
@@ -1402,7 +1418,7 @@ custom_fonts/font = SubResource( 11 )
 text = "Cheering bits"
 expand_icon = true
 
-[node name="AmountBits" type="SpinBox" parent="Settings/TabContainer/Guess Requirements/CheeringBits"]
+[node name="AmountBits" type="SpinBox" parent="Settings/TabContainer/Guess Costs/CheeringBits"]
 margin_left = 80.0
 margin_top = 48.0
 margin_right = 312.0
@@ -1413,7 +1429,7 @@ value = 1.0
 rounded = true
 align = 1
 
-[node name="Label" type="Label" parent="Settings/TabContainer/Guess Requirements/CheeringBits/AmountBits"]
+[node name="Label" type="Label" parent="Settings/TabContainer/Guess Costs/CheeringBits/AmountBits"]
 margin_left = 256.0
 margin_top = 16.0
 margin_right = 521.0
@@ -1422,10 +1438,10 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
 text = "Amount of bits required for one guess"
 
-[node name="Subscribing" type="CheckBox" parent="Settings/TabContainer/Guess Requirements"]
-margin_left = 172.0
+[node name="Subscribing" type="CheckBox" parent="Settings/TabContainer/Guess Costs"]
+margin_left = 36.0
 margin_top = 138.0
-margin_right = 431.0
+margin_right = 295.0
 margin_bottom = 178.0
 custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
 custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
@@ -1437,7 +1453,7 @@ custom_fonts/font = SubResource( 11 )
 text = "Subscribing"
 expand_icon = true
 
-[node name="TierRequired" type="SpinBox" parent="Settings/TabContainer/Guess Requirements/Subscribing"]
+[node name="TierRequired" type="SpinBox" parent="Settings/TabContainer/Guess Costs/Subscribing"]
 margin_left = 80.0
 margin_top = 40.0
 margin_right = 312.0
@@ -1448,7 +1464,7 @@ value = 1.0
 rounded = true
 align = 1
 
-[node name="Label" type="Label" parent="Settings/TabContainer/Guess Requirements/Subscribing/TierRequired"]
+[node name="Label" type="Label" parent="Settings/TabContainer/Guess Costs/Subscribing/TierRequired"]
 margin_left = 256.0
 margin_top = 16.0
 margin_right = 521.0
@@ -1457,7 +1473,7 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
 text = "Tier required for one guess"
 
-[node name="MonthsRequired" type="SpinBox" parent="Settings/TabContainer/Guess Requirements/Subscribing"]
+[node name="MonthsRequired" type="SpinBox" parent="Settings/TabContainer/Guess Costs/Subscribing"]
 margin_left = 80.0
 margin_top = 112.0
 margin_right = 312.0
@@ -1468,7 +1484,7 @@ value = 1.0
 rounded = true
 align = 1
 
-[node name="Label" type="Label" parent="Settings/TabContainer/Guess Requirements/Subscribing/MonthsRequired"]
+[node name="Label" type="Label" parent="Settings/TabContainer/Guess Costs/Subscribing/MonthsRequired"]
 margin_left = 256.0
 margin_top = 16.0
 margin_right = 521.0
@@ -1477,10 +1493,10 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
 text = "Months required for one guess"
 
-[node name="ChatCommand" type="CheckBox" parent="Settings/TabContainer/Guess Requirements"]
-margin_left = 172.0
+[node name="ChatCommand" type="CheckBox" parent="Settings/TabContainer/Guess Costs"]
+margin_left = 36.0
 margin_top = 317.0
-margin_right = 431.0
+margin_right = 295.0
 margin_bottom = 357.0
 custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
 custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
@@ -1492,7 +1508,7 @@ custom_fonts/font = SubResource( 11 )
 text = "Chat command"
 expand_icon = true
 
-[node name="Timeout" type="SpinBox" parent="Settings/TabContainer/Guess Requirements/ChatCommand"]
+[node name="Timeout" type="SpinBox" parent="Settings/TabContainer/Guess Costs/ChatCommand"]
 margin_left = 80.0
 margin_top = 48.0
 margin_right = 312.0
@@ -1503,7 +1519,7 @@ value = 1.0
 rounded = true
 align = 1
 
-[node name="Label" type="Label" parent="Settings/TabContainer/Guess Requirements/ChatCommand/Timeout"]
+[node name="Label" type="Label" parent="Settings/TabContainer/Guess Costs/ChatCommand/Timeout"]
 margin_left = 256.0
 margin_right = 608.0
 margin_bottom = 65.0
@@ -1512,10 +1528,10 @@ custom_fonts/font = ExtResource( 4 )
 text = "Timeout (in seconds) between calling the guess command"
 autowrap = true
 
-[node name="Multitude" type="CheckBox" parent="Settings/TabContainer/Guess Requirements"]
-margin_left = 172.0
+[node name="Multitude" type="CheckBox" parent="Settings/TabContainer/Guess Costs"]
+margin_left = 36.0
 margin_top = 454.0
-margin_right = 423.0
+margin_right = 552.0
 margin_bottom = 494.0
 custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
 custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
@@ -1525,6 +1541,61 @@ custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
 custom_fonts/font = SubResource( 12 )
 text = "Cheering/subscribing a multitude = Multitude of guesses"
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Guess Costs"]
+margin_left = 692.0
+margin_top = 142.0
+margin_right = 964.0
+margin_bottom = 220.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Do you want to disable these limits for the:"
+autowrap = true
+
+[node name="Streamer" type="CheckBox" parent="Settings/TabContainer/Guess Costs"]
+margin_left = 748.0
+margin_top = 214.0
+margin_right = 876.0
+margin_bottom = 254.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 13 )
+text = "Streamer"
+expand_icon = true
+
+[node name="Moderators" type="CheckBox" parent="Settings/TabContainer/Guess Costs"]
+margin_left = 748.0
+margin_top = 261.0
+margin_right = 877.0
+margin_bottom = 301.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 13 )
+text = "Moderators"
+expand_icon = true
+
+[node name="VIPs" type="CheckBox" parent="Settings/TabContainer/Guess Costs"]
+margin_left = 748.0
+margin_top = 310.0
+margin_right = 877.0
+margin_bottom = 350.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 13 )
+text = "VIPs"
+expand_icon = true
 
 [node name="Exit (Saves)" type="ToolButton" parent="Settings/TabContainer"]
 visible = false
@@ -1541,6 +1612,10 @@ margin_bottom = 50.0
 
 [node name="Tween" type="Tween" parent="."]
 
+[node name="Heartbeat" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
 [connection signal="gui_input" from="Control" to="." method="_on_Control_gui_input"]
 [connection signal="about_to_show" from="ContextMenu" to="ContextMenu" method="_on_ContextMenu_about_to_show"]
 [connection signal="toggled" from="ContextMenu/VBoxContainer/PreviewGame" to="ContextMenu" method="_on_PreviewGame_toggled"]
@@ -1554,6 +1629,7 @@ margin_bottom = 50.0
 [connection signal="toggled" from="Settings/TabContainer/Hangman/GuessHangman" to="Settings" method="_on_GuessHangman_toggled"]
 [connection signal="toggled" from="Settings/TabContainer/Hangman/GuessedLetters" to="Settings" method="_on_GuessedLetters_toggled"]
 [connection signal="toggled" from="Settings/TabContainer/Hangman/WrongLetters" to="Settings" method="_on_WrongLetters_toggled"]
+[connection signal="value_changed" from="Settings/TabContainer/Hangman/SpinBox" to="Settings" method="_on_SpinBox_value_changed"]
 [connection signal="ready" from="Settings/TabContainer/Words/ScrollContainer/VBoxContainer" to="Settings" method="_on_VBoxContainer_ready"]
 [connection signal="pressed" from="Settings/TabContainer/Words/OpenCsvFile" to="Settings" method="_on_OpenCsvFile_pressed"]
 [connection signal="file_selected" from="Settings/TabContainer/Words/OpenCsvFile/FileDialog" to="Settings" method="_on_FileDialog_file_selected"]
@@ -1561,5 +1637,11 @@ margin_bottom = 50.0
 [connection signal="pressed" from="Settings/TabContainer/Words/ResetUsed" to="Settings" method="_on_ResetUsed_pressed"]
 [connection signal="pressed" from="Settings/TabContainer/Words/ResetWords" to="Settings" method="_on_ResetWords_pressed"]
 [connection signal="confirmed" from="Settings/TabContainer/Words/ResetDialog" to="Settings" method="_on_ResetDialog_confirmed"]
+[connection signal="gui_input" from="Settings/TabContainer/Words/TextureRect2" to="Settings" method="_on_TextureRect2_gui_input"]
+[connection signal="value_changed" from="Settings/TabContainer/Guess Costs/CheeringBits/AmountBits" to="Settings" method="_on_AmountBits_value_changed"]
+[connection signal="value_changed" from="Settings/TabContainer/Guess Costs/Subscribing/TierRequired" to="Settings" method="_on_TierRequired_value_changed"]
+[connection signal="value_changed" from="Settings/TabContainer/Guess Costs/Subscribing/MonthsRequired" to="Settings" method="_on_MonthsRequired_value_changed"]
+[connection signal="value_changed" from="Settings/TabContainer/Guess Costs/ChatCommand/Timeout" to="Settings" method="_on_Timeout_value_changed"]
 [connection signal="request_completed" from="Settings/HTTPRequest" to="Settings" method="_on_HTTPRequest_request_completed"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
+[connection signal="timeout" from="Heartbeat" to="." method="_on_Heartbeat_timeout"]

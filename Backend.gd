@@ -10,7 +10,7 @@ var current_word_offset: int = 0
 # this will be set to 1 once connected and then be used to multiply the wait time
 var connected: int = 0
 # these are exctracted from the set commands once at startup
-var requirement_command: String = ""
+var costs_command: String = ""
 var guess_command: String = ""
 var blocked: bool = false
 
@@ -86,8 +86,8 @@ func _ready():
 	set_colours()
 	reset_ui()
 	for set_command in config_.commands:
-		if config_.commands[set_command] == "guessrequirements":
-			requirement_command = set_command
+		if config_.commands[set_command] == "guesscosts":
+			costs_command = set_command
 		elif config_.commands[set_command] == "guess":
 			guess_command = set_command
 	# Connect base signals to get notified of connection open, close, and errors.
@@ -104,6 +104,7 @@ func _ready():
 	if error != OK:
 		print("Unable to connect")
 		set_process(false)
+	
 
 func _closed(was_clean = false):
 	# was_clean will tell you if the disconnection was correctly notified
@@ -139,7 +140,7 @@ func command_to_text(command: String) -> String:
 	if command == "explainbot":
 		string_to_return = "With this bot, you can play the hangman game you see on screen. "
 		if config_.amount_timeout:
-			string_to_return += "You can use the !guess command. "
+			string_to_return += "You can use the " + guess_command + " command. "
 			if config_.amount_bits and config_.amount_tier and config_.multitude:
 				string_to_return += "Either cheer or subscribe to get instant guess(es). "
 			elif config_.amount_bits and config_.amount_tier:
@@ -165,16 +166,16 @@ func command_to_text(command: String) -> String:
 				string_to_return += "You need to susbcribe to get instant guess(es). "
 			elif config_.amount_tier:
 				string_to_return += "You need to susbcribe to get an instant guess. "
-			string_to_return += "After you did that, use !guess to guess. "
-		string_to_return += " Check " + requirement_command + " for the requirements for one guess."
+			string_to_return += "After you did that, use " + guess_command + " to guess. "
+		string_to_return += " Check " + costs_command + " for the costs for one guess."
 	elif command == "showcommands":
 		string_to_return += "These are the commands you can use with this bot: "
 		for set_commands in config_.commands:
 			string_to_return += "* " + set_commands + " "
-	elif command  == "guessrequirements":
+	elif command  == "guesscosts":
 		string_to_return += "In order to get a guess, "
 		if config_.amount_timeout:
-			string_to_return += "you can use the !guess command. But you need to wait for %s seconds until you can guess again. " % config_.amount_timeout
+			string_to_return += "you can use the " + guess_command + "command. But you need to wait for %s seconds until you can guess again. " % config_.amount_timeout
 			if config_.amount_bits and config_.amount_tier and config_.multitude:
 				string_to_return += "Either cheer %s Bits or subscribe at %s Tier for %s month(s) to get instant guess(es). " % [config_.amount_bits, config_.amount_tier, config_.amount_months]
 			elif config_.amount_bits and config_.amount_tier:
@@ -222,7 +223,9 @@ func draw_new_word(word: String):
 	
 
 func new_word():
-	words[config_.current_word] = 1
+	# this can only happen when switching from intro screen:
+	if config_.current_word:
+		words[config_.current_word] = 1
 	if not words.values().has(0):
 		if not config_.random_words:
 			$ErrorDialog.dialog_text = "No unguessed words left"
@@ -273,8 +276,23 @@ func do_guess(guess: String, display_name: String) -> int:
 		config_.wrong_guessed_chars = pool_array
 		return 4
 	if guess in config_.guessed_chars or guess in config_.wrong_guessed_chars:
+		if config_.count_already:
+			var pool_array = config_.wrong_guessed_chars
+			pool_array.push_back(guess)
+			config_.wrong_guessed_chars = pool_array
+			$HangmanRoot.get_child(currentHangmanState).visible = true
+			currentHangmanState += 1
+			if config_.show_wrong:
+				var a = $WrongGuessesRoot.get_children()
+				var child = false
+				while !child:
+					var b = a[randi() % a.size()]
+					if !b.visible:
+						child = b
+				child.get_child(0).text = guess.to_upper()
+				child.visible = true
 		return 0
-	elif guess in config_.current_word:
+	if guess in config_.current_word:
 		var pool_array = config_.guessed_chars
 		pool_array.push_back(guess)
 		config_.guessed_chars = pool_array
@@ -323,15 +341,10 @@ func potential_guess(message: Dictionary) -> String:
 	if message["User"]["ID"] in guessers:
 		guesser = guessers[message["User"]["ID"]]
 	var guess_result: String = ""
-	if config_.amount_timeout:
-		if not guesser:
+	if config_.dont_limit:
+		if message["Tags"]["badges"].get_slice("/", 0) in config_.dont_limit:
 			var result = do_guess(guess, message["User"]["DisplayName"])
-			guessers[message["Tags"]["user-id"]] = {"last_guess": int(message["Tags"]["tmi-sent-ts"]),"guess_contigent": 0,
-					"guesses": 0,"correct_guesses": 0}
 			if result == 0:
-				if not config_.count_already:
-					guessers.erase(message["Tags"]["user-id"])
-					guess_result = guess_exists_no_contigent
 				guess_result = guess_exists
 			elif result == 1:
 				guess_result = correct_guess
@@ -339,14 +352,15 @@ func potential_guess(message: Dictionary) -> String:
 				guess_result = incorrect_guess
 			else:
 				guess_result = guess_build_hangman
-		else:
-			if (int(message["Tags"]["tmi-sent-ts"]) - guesser["last_guess"]) >= config_.amount_timeout*1000:
-				var old_time = guesser["last_guess"]
-				guesser["last_guess"] = int(message["Tags"]["tmi-sent-ts"])
+	if not guess_result:
+		if config_.amount_timeout:
+			if not guesser:
 				var result = do_guess(guess, message["User"]["DisplayName"])
+				guessers[message["Tags"]["user-id"]] = {"last_guess": int(message["Tags"]["tmi-sent-ts"]),"guess_contigent": 0,
+						"guesses": 0,"correct_guesses": 0}
 				if result == 0:
 					if not config_.count_already:
-						guesser["last_guess"] = old_time
+						guessers.erase(message["Tags"]["user-id"])
 						guess_result = guess_exists_no_contigent
 					guess_result = guess_exists
 				elif result == 1:
@@ -356,25 +370,13 @@ func potential_guess(message: Dictionary) -> String:
 				else:
 					guess_result = guess_build_hangman
 			else:
-				if guesser["guess_contigent"] == 0:
-					var wait_time = int((config_.amount_timeout*1000 - (int(message["Tags"]["tmi-sent-ts"]) - guesser["last_guess"]))/1000)
-					var message_to_send = "Sorry, you have to wait %s seconds more before you can ask again. " % wait_time
-					if config_.amount_bits or config_.amount_tier:
-						if config_.amount_bits and config_.amount_tier:
-							message_to_send += "You can either subscribe or cheer to get another guess instantly. "
-						elif config_.amount_bits:
-							message_to_send += "You can cheer to get another guess instantly. "
-						else:
-							message_to_send += "You can subscribe to get another guess instantly. "
-						return message_to_send + "Check " + requirement_command + " to know the requirements for one."
-					else:
-						return message_to_send
-				else:
-					guesser["guess_contigent"] -= 1
+				if (int(message["Tags"]["tmi-sent-ts"]) - guesser["last_guess"]) >= config_.amount_timeout*1000:
+					var old_time = guesser["last_guess"]
+					guesser["last_guess"] = int(message["Tags"]["tmi-sent-ts"])
 					var result = do_guess(guess, message["User"]["DisplayName"])
 					if result == 0:
 						if not config_.count_already:
-							guesser["guess_contigent"] += 1
+							guesser["last_guess"] = old_time
 							guess_result = guess_exists_no_contigent
 						guess_result = guess_exists
 					elif result == 1:
@@ -383,6 +385,58 @@ func potential_guess(message: Dictionary) -> String:
 						guess_result = incorrect_guess
 					else:
 						guess_result = guess_build_hangman
+				else:
+					if guesser["guess_contigent"] == 0:
+						var wait_time = int((config_.amount_timeout*1000 - (int(message["Tags"]["tmi-sent-ts"]) - guesser["last_guess"]))/1000)
+						var message_to_send = "Sorry, you have to wait %s seconds more before you can ask again. " % wait_time
+						if config_.amount_bits or config_.amount_tier:
+							if config_.amount_bits and config_.amount_tier:
+								message_to_send += "You can either subscribe or cheer to get another guess instantly. "
+							elif config_.amount_bits:
+								message_to_send += "You can cheer to get another guess instantly. "
+							else:
+								message_to_send += "You can subscribe to get another guess instantly. "
+							return message_to_send + "Check " + costs_command + " to know the costs for one."
+						else:
+							return message_to_send
+					else:
+						guesser["guess_contigent"] -= 1
+						var result = do_guess(guess, message["User"]["DisplayName"])
+						if result == 0:
+							if not config_.count_already:
+								guesser["guess_contigent"] += 1
+								guess_result = guess_exists_no_contigent
+							guess_result = guess_exists
+						elif result == 1:
+							guess_result = correct_guess
+						elif result == 2:
+							guess_result = incorrect_guess
+						else:
+							guess_result = guess_build_hangman
+		else:
+			if guesser["guess_contigent"] == 0:
+				var message_to_send = "Sorry, you need to "
+				if config_.amount_bits and config_.amount_tier:
+					message_to_send += "either subscribe or cheer to get another guess. "
+				elif config_.amount_bits:
+					message_to_send += "cheer to get another guess. "
+				else:
+					message_to_send += "subscribe to get another guess. "
+				return message_to_send + "Check " + costs_command + " to know the costs for one."
+			else:
+				guesser["guess_contigent"] -= 1
+				var result = do_guess(guess, message["User"]["DisplayName"])
+				if result == 0:
+					if not config_.count_already:
+						guesser["guess_contigent"] += 1
+						guess_result = guess_exists_no_contigent
+					guess_result = guess_exists
+				elif result == 1:
+					guess_result = correct_guess
+				elif result == 2:
+					guess_result = incorrect_guess
+				else:
+					guess_result = guess_build_hangman
 	var guessed_word = true
 	for i in range(current_word_offset, current_word_offset + config_.current_word.length()):
 		if not $GuessingRoot.get_child(i).get_child(0).text:
@@ -460,16 +514,20 @@ func animation_finished(won: bool):
 		new_word()
 
 func add_guess_contingent(message: Dictionary) -> String:
+	print("In add function")
+	print(guessers)
 	var amount_guesses: int = 0
 	if config_.amount_bits:
+		print(int(message["Tags"]["bits"]))
 		if config_.multitude:
-			amount_guesses = int(int(message["Tags"]["msg-param-threshold"]) / config_.amount_bits)
+			amount_guesses = int(int(message["Tags"]["bits"]) / config_.amount_bits)
 		else:
-			if int(message["Tags"]["msg-param-threshold"]) >= config_.amount_bits:
+			if int(message["Tags"]["bits"]) >= config_.amount_bits:
 				amount_guesses = 1
 	else:
 		var level:int
 		var plan = message["Tags"]["msg-param-sub-plan"]
+		print(plan)
 		if plan == "Prime" || plan == "1000":
 			level = 1
 		elif plan == "2000":
@@ -487,11 +545,14 @@ func add_guess_contingent(message: Dictionary) -> String:
 		else:
 			if level >= config_.amount_tier and months >= config_.amount_tier:
 				amount_guesses = 1
+	print(amount_guesses)
 	if message["Tags"]["user-id"] in guessers:
 		guessers[message["Tags"]["user-id"]]["amount_guesses"] += amount_guesses
 	else:
 		guessers[message["Tags"]["user-id"]] = {"last_guess": 0,"guess_contigent": amount_guesses,
 							"guesses": 0,"correct_guesses": 0}
+	print(guessers)
+	print(guessers[message["Tags"]["user-id"]])
 	return "You gained %s guesses with this @%s, use them wisely! Or not." % [amount_guesses, message["Tags"]["display-name"]]
 
 func _on_data():
@@ -500,9 +561,12 @@ func _on_data():
 	# using the MultiplayerAPI.
 	var message = _client.get_peer(1).get_packet().get_string_from_utf8()
 	var json = JSON.parse(message).result
+	if "pong" in json:
+		return
+	print(json)
 	var message_to_send: String
 	if config_.amount_bits:
-		if "Tags" in json and "msg-param-threshold" in json["Tags"]:
+		if "Tags" in json and "bits" in json["Tags"]:
 			message_to_send = add_guess_contingent(json)
 	if config_.amount_tier:
 		if "Tags" in json:
@@ -546,7 +610,6 @@ func _on_data():
 						message_to_send = command_to_text(actual_command)
 					break
 	if message_to_send:
-		print("hey")
 		message_to_send = json["ID"]  + " " + message_to_send
 		_client.get_peer(1).put_packet(message_to_send.to_utf8())
 	
@@ -627,3 +690,7 @@ func _on_Control_gui_input(event):
 	if (event is InputEventMouseButton && event.pressed && event.button_index == 2):
 		$ContextMenu.set_position(event.position)
 		$ContextMenu.popup()
+
+
+func _on_Heartbeat_timeout():
+	_client.get_peer(1).put_packet("ping".to_utf8())

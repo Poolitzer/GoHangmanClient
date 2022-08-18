@@ -6,7 +6,7 @@ var twitch_url: String
 var config_ = Config.new()
 var node_triggered_new_line = {}
 var file_path: String
-
+var word_file: bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -193,14 +193,14 @@ func _on_ContinueInputWord_pressed():
 		$ErrorDialog.dialog_text = "You did not supply any words and did not activate adding random ones, so there is no way to guess..."
 		$ErrorDialog.popup()
 		return
-	config_.word_file = false
+	word_file = false
 	if temp_words.size() != 0:
 		var file = File.new()
 		file.open("user://words.csv", File.WRITE)
 		for word in temp_words:
 			file.store_csv_line(word)
 		file.close()
-		config_.word_file = true
+		word_file = true
 	$Panel/InputWord.visible = false
 	$Panel/ShowGuesses.visible = true
 
@@ -215,7 +215,7 @@ func _on_ContinueShowGuesses_pressed():
 
 func _on_BackShowGuesses_pressed():
 	$Panel/ShowGuesses.visible = false
-	if config_.word_file:
+	if word_file:
 		$Panel/InputWord.visible = true
 	else:
 		$Panel/WordSource.visible = true
@@ -268,6 +268,14 @@ func _on_ContinueTypeGuesses_pressed():
 		$Panel/Multitude.visible = true
 	else:
 		$Panel/Chat.visible = true
+	var temp_limits = []
+	if $Panel/TypeGuesses/Streamer.pressed:
+		temp_limits.append("broadcaster")
+	if $Panel/TypeGuesses/Moderators.pressed:
+		temp_limits.append("moderator")
+	if $Panel/TypeGuesses/VIPs.pressed:
+		temp_limits.append("vip")
+	config_.dont_limit = PoolStringArray(temp_limits)
 
 # tenth slide
 func _on_BackMultitude_pressed():
@@ -290,8 +298,12 @@ func _on_Chat_draw():
 	else:
 		if not config_.show_guess:
 			$Panel/Chat/Commands/GuessedLettersRight/ShowingRightLetters.visible = true
+		else:
+			$Panel/Chat/Commands/GuessedLettersRight/ShowingRightLetters.visible = false
 		if not config_.show_wrong:
 			$Panel/Chat/Commands/GuessedLettersWrong/ShowingWrongLetters.visible = true
+		else:
+			$Panel/Chat/Commands/GuessedLettersWrong/ShowingWrongLetters.visible = false
 
 
 func _on_BackChat_pressed():
@@ -308,6 +320,10 @@ func _on_ContinueChat_pressed():
 			var text = child.get_child(0).text
 			if not text:
 				$ErrorDialog.dialog_text = "The command at " + child.text + " is empty, which can not work..."
+				$ErrorDialog.popup()
+				return
+			if text in config_.commands:
+				$ErrorDialog.dialog_text = "The command at " + child.text + " was already used, which can not work..."
 				$ErrorDialog.popup()
 				return
 			config_.commands[text] = child.name.to_lower()

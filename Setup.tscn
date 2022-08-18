@@ -348,7 +348,7 @@ margin_bottom = 448.0
 text = "
 The .csv file expected could be one from a different instance of this client or one you made yourself. You do not need to submit one, filling words in manually or just using the random ones is totally fine.
 
-The first columns of the csv is the word itself, the second one if it was already used (1) or not (0). You can reset all of them to 0 in the right click menu once you finished the setup.
+The first columns of the csv is the word itself, the second one if it was already used (1) or not (0). You can reset all of them to 0 in the settings menu, if you right once you finished the setup.
 
 The expected delimiter is the ,. If you use it in your word, wrap the word in enclosing quotes. If you want to use a quote, double quote it. 
 Example:
@@ -372,18 +372,18 @@ align = 1
 
 [node name="TextureRect" type="TextureRect" parent="Panel/ShowGuesses"]
 margin_left = 296.0
-margin_top = 96.0
+margin_top = 64.0
 margin_right = 1313.0
-margin_bottom = 691.0
+margin_bottom = 659.0
 rect_scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 5 )
 stretch_mode = 1
 
 [node name="GuessedLetters" type="CheckBox" parent="Panel/ShowGuesses"]
 margin_left = 160.0
-margin_top = 368.0
+margin_top = 336.0
 margin_right = 419.0
-margin_bottom = 408.0
+margin_bottom = 376.0
 custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
 custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
 custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
@@ -397,9 +397,9 @@ expand_icon = true
 
 [node name="WrongLetters" type="CheckBox" parent="Panel/ShowGuesses"]
 margin_left = 584.0
-margin_top = 368.0
+margin_top = 336.0
 margin_right = 843.0
-margin_bottom = 408.0
+margin_bottom = 376.0
 custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
 custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -411,9 +411,9 @@ text = "Show wrong guesses"
 expand_icon = true
 
 [node name="CountAlreadyGuessed" type="CheckBox" parent="Panel/ShowGuesses"]
-margin_left = 336.0
+margin_left = 280.0
 margin_top = 432.0
-margin_right = 620.0
+margin_right = 728.0
 margin_bottom = 472.0
 custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
 custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
@@ -422,7 +422,7 @@ custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
 custom_fonts/font = SubResource( 5 )
 pressed = true
-text = "Count already guessed letters"
+text = "Count already guessed letters as wrong guesses"
 expand_icon = true
 
 [node name="ContinueShowGuesses" type="Button" parent="Panel/ShowGuesses"]
@@ -441,21 +441,32 @@ text = "Back"
 
 [node name="Label" type="Label" parent="Panel/ShowGuesses"]
 margin_left = 96.0
-margin_top = 104.0
+margin_top = 72.0
 margin_right = 301.0
-margin_bottom = 135.0
+margin_bottom = 103.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
 text = "Guessed letters =>"
 
 [node name="Label2" type="Label" parent="Panel/ShowGuesses"]
 margin_left = 688.0
-margin_top = 256.0
+margin_top = 224.0
 margin_right = 892.0
-margin_bottom = 287.0
+margin_bottom = 255.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
 text = "<= Wrong guesses"
+
+[node name="Label3" type="Label" parent="Panel/ShowGuesses"]
+margin_left = 48.0
+margin_top = 400.0
+margin_right = 1000.0
+margin_bottom = 424.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Do you want to count guesses for letters which have already been guessed as wrong guesses?"
+align = 1
+autowrap = true
 
 [node name="AmountGuesses" type="Label" parent="Panel"]
 visible = false
@@ -516,10 +527,10 @@ text = "How do you want your viewers to guess"
 align = 1
 
 [node name="CheeringBits" type="CheckBox" parent="Panel/TypeGuesses"]
-margin_left = 128.0
-margin_top = 55.0
-margin_right = 387.0
-margin_bottom = 95.0
+margin_left = 16.0
+margin_top = 56.0
+margin_right = 275.0
+margin_bottom = 96.0
 custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
 custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
 custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
@@ -551,10 +562,10 @@ custom_fonts/font = ExtResource( 4 )
 text = "Amount of bits required for one guess"
 
 [node name="Subscribing" type="CheckBox" parent="Panel/TypeGuesses"]
-margin_left = 128.0
-margin_top = 171.0
-margin_right = 387.0
-margin_bottom = 211.0
+margin_left = 16.0
+margin_top = 172.0
+margin_right = 275.0
+margin_bottom = 212.0
 custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
 custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
 custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
@@ -606,10 +617,10 @@ custom_fonts/font = ExtResource( 4 )
 text = "Months required for one guess"
 
 [node name="ChatCommand" type="CheckBox" parent="Panel/TypeGuesses"]
-margin_left = 128.0
-margin_top = 350.0
-margin_right = 387.0
-margin_bottom = 390.0
+margin_left = 16.0
+margin_top = 351.0
+margin_right = 275.0
+margin_bottom = 391.0
 custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
 custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
 custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
@@ -637,7 +648,63 @@ margin_right = 608.0
 margin_bottom = 65.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
-text = "Timeout (in seconds) between calling the guess command"
+text = "Wait time (in seconds) between calling the guess command"
+autowrap = true
+
+[node name="Streamer" type="CheckBox" parent="Panel/TypeGuesses"]
+margin_left = 792.0
+margin_top = 256.0
+margin_right = 920.0
+margin_bottom = 296.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 5 )
+pressed = true
+text = "Streamer"
+expand_icon = true
+
+[node name="Moderators" type="CheckBox" parent="Panel/TypeGuesses"]
+margin_left = 792.0
+margin_top = 303.0
+margin_right = 921.0
+margin_bottom = 343.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "Moderators"
+expand_icon = true
+
+[node name="VIPs" type="CheckBox" parent="Panel/TypeGuesses"]
+margin_left = 792.0
+margin_top = 352.0
+margin_right = 921.0
+margin_bottom = 392.0
+custom_colors/font_color_disabled = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_focus = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "VIPs"
+expand_icon = true
+
+[node name="Label" type="Label" parent="Panel/TypeGuesses"]
+margin_left = 736.0
+margin_top = 184.0
+margin_right = 1008.0
+margin_bottom = 262.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Do you want to disable these limits for the:"
 autowrap = true
 
 [node name="ContinueTypeGuesses" type="Button" parent="Panel/TypeGuesses"]
@@ -662,7 +729,7 @@ margin_right = 1024.0
 margin_bottom = 80.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 3 )
-text = "Should cheering a multiple of bits or subscribing a multiple of times/higher tier trigger a multitude of guessed?"
+text = "Should cheering a multiple of bits or subscribing a multiple of times/higher tier trigger a multitude of guesses?"
 align = 1
 autowrap = true
 
@@ -851,7 +918,7 @@ text = "You disabled showing correctly guessed letters on screen.
 I would recommend enabling the chat command so people can know what has been guessed."
 autowrap = true
 
-[node name="GuessRequirements" type="CheckBox" parent="Panel/Chat/Commands"]
+[node name="GuessCosts" type="CheckBox" parent="Panel/Chat/Commands"]
 margin_left = 384.0
 margin_top = 128.0
 margin_right = 643.0
@@ -865,16 +932,16 @@ custom_colors/font_color_pressed = Color( 0.72549, 0.741176, 0.756863, 1 )
 custom_fonts/font = SubResource( 5 )
 disabled = true
 pressed = true
-text = "Requirements for a guess"
+text = "Costs for a guess"
 expand_icon = true
 
-[node name="GuessRequirementsCommand" type="LineEdit" parent="Panel/Chat/Commands/GuessRequirements"]
+[node name="GuessCostsCommand" type="LineEdit" parent="Panel/Chat/Commands/GuessCosts"]
 margin_left = 32.0
 margin_top = 40.0
 margin_right = 280.0
 margin_bottom = 81.0
 custom_fonts/font = ExtResource( 4 )
-text = "!hangmanbot requirements"
+text = "!hangmanbot costs"
 
 [node name="GuessAmount" type="CheckBox" parent="Panel/Chat/Commands"]
 margin_left = 40.0
@@ -953,7 +1020,7 @@ margin_right = 1016.0
 margin_bottom = 296.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
-text = "Take a deep breath, you have done it! Once you press this last continue button, the settings will be saved and you have everything ready to go. Use the right-click menu to activate preview mode and scale everything according to your wished, or to further change settings if you want to. Maybe also make a backup of the settings file, the folder is linked in the context menu."
+text = "Take a deep breath, you have done it! Once you press this last continue button, the settings will be saved and you have everything ready to go. Use the right-click menu to activate preview mode and scale everything according to your wishes, or to further change settings if you want to. Maybe also make a backup of the settings file, the folder is linked in the context menu."
 align = 1
 autowrap = true
 

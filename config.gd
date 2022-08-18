@@ -10,7 +10,7 @@ export(bool) var random_words
 export(bool) var show_guess
 export(bool) var show_wrong
 export(bool) var count_already
-export(bool) var word_file
+export(PoolStringArray) var dont_limit
 export(int) var amount_bits
 export(int) var amount_tier
 export(int) var amount_months
