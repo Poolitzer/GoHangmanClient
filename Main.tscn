@@ -1318,7 +1318,7 @@ text = "You disabled showing correctly guessed letters on screen.
 I would recommend enabling the chat command so people can know what has been guessed."
 autowrap = true
 
-[node name="GuessRequirements" type="CheckBox" parent="Settings/TabContainer/Chat Commands"]
+[node name="GuessCosts" type="CheckBox" parent="Settings/TabContainer/Chat Commands"]
 margin_left = 364.0
 margin_top = 94.0
 margin_right = 623.0
@@ -1338,7 +1338,7 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="GuessRequirementsCommand" type="LineEdit" parent="Settings/TabContainer/Chat Commands/GuessRequirements"]
+[node name="GuessCostsCommand" type="LineEdit" parent="Settings/TabContainer/Chat Commands/GuessCosts"]
 margin_left = 32.0
 margin_top = 40.0
 margin_right = 280.0
@@ -1639,9 +1639,12 @@ autostart = true
 [connection signal="pressed" from="Settings/TabContainer/Words/ResetWords" to="Settings" method="_on_ResetWords_pressed"]
 [connection signal="confirmed" from="Settings/TabContainer/Words/ResetDialog" to="Settings" method="_on_ResetDialog_confirmed"]
 [connection signal="gui_input" from="Settings/TabContainer/Words/TextureRect2" to="Settings" method="_on_TextureRect2_gui_input"]
+[connection signal="pressed" from="Settings/TabContainer/Guess Costs/CheeringBits" to="Settings" method="_on_CheeringBits_pressed"]
 [connection signal="value_changed" from="Settings/TabContainer/Guess Costs/CheeringBits/AmountBits" to="Settings" method="_on_AmountBits_value_changed"]
+[connection signal="pressed" from="Settings/TabContainer/Guess Costs/Subscribing" to="Settings" method="_on_Subscribing_pressed"]
 [connection signal="value_changed" from="Settings/TabContainer/Guess Costs/Subscribing/TierRequired" to="Settings" method="_on_TierRequired_value_changed"]
 [connection signal="value_changed" from="Settings/TabContainer/Guess Costs/Subscribing/MonthsRequired" to="Settings" method="_on_MonthsRequired_value_changed"]
+[connection signal="pressed" from="Settings/TabContainer/Guess Costs/ChatCommand" to="Settings" method="_on_ChatCommand_pressed"]
 [connection signal="value_changed" from="Settings/TabContainer/Guess Costs/ChatCommand/Timeout" to="Settings" method="_on_Timeout_value_changed"]
 [connection signal="request_completed" from="Settings/HTTPRequest" to="Settings" method="_on_HTTPRequest_request_completed"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]

@@ -70,14 +70,7 @@ func _on_TabContainer_tab_selected(tab):
 			words[$TabContainer/Words/CurrentWord.text.to_lower()] = 0
 		$"/root/MainStart".set("words", words)
 		config_.random_words = $TabContainer/Words/AppendRandom.pressed
-		# guess costs
-		if not $"TabContainer/Guess Costs/CheeringBits".pressed:
-			config_.amount_bits = 0
-		if not $"TabContainer/Guess Costs/Subscribing".pressed:
-			config_.amount_tier = 0
-			config_.amount_months = 0
-		if not $"TabContainer/Guess Costs/ChatCommand".pressed:
-			config_.amount_timeout = 0
+		# guess costs, everything else is handled by signals because race conditions
 		config_.multitude = $"TabContainer/Guess Costs/Multitude".pressed
 		var temp_limits = []
 		if $"TabContainer/Guess Costs/Streamer".pressed:
@@ -311,17 +304,44 @@ func _on_ResetDialog_confirmed():
 	$"/root/MainStart".set("words", {})
 
 # guess cost slide - all of these need to be on signal to avoid race conditions
-func _on_AmountBits_value_changed(value):
-	config_.amount_bits = int(value)
+# since they are there, just pressing the checkbox wont save the value, so we also signal handle them
+ 
 
+func _on_CheeringBits_pressed():
+	if not $"TabContainer/Guess Costs/CheeringBits".pressed:
+		config_.amount_bits = 0
+	else:
+		config_.amount_bits = $"TabContainer/Guess Costs/CheeringBits/AmountBits".value
+
+func _on_AmountBits_value_changed(value):
+	if $"TabContainer/Guess Costs/CheeringBits".pressed:
+		config_.amount_bits = int(value)
+
+func _on_Subscribing_pressed():
+	if not $"TabContainer/Guess Costs/Subscribing".pressed:
+			config_.amount_tier = 0
+			config_.amount_months = 0
+	else:
+		config_.amount_tier = $"TabContainer/Guess Costs/Subscribing/TierRequired".value
+		config_.amount_months = $"TabContainer/Guess Costs/Subscribing/MonthsRequired".value
 
 func _on_TierRequired_value_changed(value):
-	config_.amount_tier = int(value)
+	if $"TabContainer/Guess Costs/Subscribing".pressed:
+		config_.amount_tier = int(value)
 
 
 func _on_MonthsRequired_value_changed(value):
-	config_.amount_months = int(value)
+	if $"TabContainer/Guess Costs/Subscribing".pressed:
+		config_.amount_months = int(value)
 
+
+func _on_ChatCommand_pressed():
+	if not $"TabContainer/Guess Costs/ChatCommand".pressed:
+		config_.amount_timeout = 0
+	else:
+		 config_.amount_timeout = $"TabContainer/Guess Costs/ChatCommand/Timeout".value
 
 func _on_Timeout_value_changed(value):
-	config_.amount_timeout = int(value)
+	if $"TabContainer/Guess Costs/ChatCommand".pressed:
+		config_.amount_timeout = int(value)
+
