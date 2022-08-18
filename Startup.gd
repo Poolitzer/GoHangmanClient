@@ -337,4 +337,20 @@ func _on_BackFinish_pressed():
 
 
 func _on_ContinueFinish_pressed():
-	SceneSwitcher.change_scene("res://Main.tscn", {"config": config_})
+	var words = {}
+	if word_file:
+		var file = File.new()
+		file.open("user://words.csv", File.READ)
+		var line = 0
+		while true:
+			line += 1
+			var temp_word = file.get_csv_line()
+			if not temp_word[0]:
+				break
+			if temp_word.size() < 2:
+				$ErrorDialog.dialog_text = "The line " + String(line) + " of the words.csv is broken, it doesn't have enough elements in it."
+				$ErrorDialog.popup()
+				return
+			words[temp_word[0].to_lower()] = int(temp_word[1])
+		file.close()
+	SceneSwitcher.change_scene("res://Main.tscn", {"config": config_, "words": words})

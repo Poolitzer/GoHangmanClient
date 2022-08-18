@@ -62,12 +62,13 @@ func _on_TabContainer_tab_selected(tab):
 				words[child.text.to_lower()] = 0
 		for word in words_from_file:
 			words[word.to_lower()] = int(words_from_file[word])
-		$"/root/MainStart".set("words", words)
 		if config_.current_word != $TabContainer/Words/CurrentWord.text:
 			config_.current_word = $TabContainer/Words/CurrentWord.text.to_lower()
 			config_.wrong_guessed_chars = PoolStringArray([])
 			config_.guessed_chars = PoolStringArray([])
 			config_.current_guessers = {}
+			words[$TabContainer/Words/CurrentWord.text.to_lower()] = 0
+		$"/root/MainStart".set("words", words)
 		config_.random_words = $TabContainer/Words/AppendRandom.pressed
 		# guess costs
 		if not $"TabContainer/Guess Costs/CheeringBits".pressed:
@@ -90,8 +91,12 @@ func _on_TabContainer_tab_selected(tab):
 		$"/root/MainStart".set_colours()
 		$"/root/MainStart".reset_ui()
 		$"/root/MainStart".save_()
-		$".".visible = false
 		$"/root/MainStart".set("blocked", false)
+		if $"/root/MainStart/ContextMenu/VBoxContainer/PreviewGame".pressed:
+			$"/root/MainStart/ContextMenu"._on_PreviewGame_toggled(true)
+		if $"/root/MainStart/ContextMenu/VBoxContainer/PreviewFinish".pressed:
+			$"/root/MainStart/ContextMenu"._on_PreviewFinish_toggled(true)
+		$".".visible = false
 	else:
 		# hide this again if it was set to true at one point
 		$TabContainer/Server/Label.visible = false

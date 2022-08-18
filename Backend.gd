@@ -621,7 +621,6 @@ func _process(delta):
 
 
 func save_():
-
 	ResourceSaver.save("user://config.tres", config_)
 	var file = File.new()
 	file.open("user://guessers.csv", File.WRITE)
@@ -640,6 +639,7 @@ func load_():
 	if not config_:
 		if SceneSwitcher.get_param("config"):
 			config_ = SceneSwitcher.get_param("config")
+			words = SceneSwitcher.get_param("words")
 			new_word()
 			config_.guessed_chars = PoolStringArray([])
 			config_.wrong_guessed_chars = PoolStringArray([])
