@@ -547,7 +547,7 @@ func add_guess_contingent(message: Dictionary) -> String:
 				amount_guesses = 1
 	print(amount_guesses)
 	if message["Tags"]["user-id"] in guessers:
-		guessers[message["Tags"]["user-id"]]["amount_guesses"] += amount_guesses
+		guessers[message["Tags"]["user-id"]]["guess_contigent"] += amount_guesses
 	else:
 		guessers[message["Tags"]["user-id"]] = {"last_guess": 0,"guess_contigent": amount_guesses,
 							"guesses": 0,"correct_guesses": 0}
