@@ -514,11 +514,8 @@ func animation_finished(won: bool):
 		new_word()
 
 func add_guess_contingent(message: Dictionary) -> String:
-	print("In add function")
-	print(guessers)
 	var amount_guesses: int = 0
-	if config_.amount_bits:
-		print(int(message["Tags"]["bits"]))
+	if "bits" in message["Tags"]:
 		if config_.multitude:
 			amount_guesses = int(int(message["Tags"]["bits"]) / config_.amount_bits)
 		else:
@@ -527,7 +524,6 @@ func add_guess_contingent(message: Dictionary) -> String:
 	else:
 		var level:int
 		var plan = message["Tags"]["msg-param-sub-plan"]
-		print(plan)
 		if plan == "Prime" || plan == "1000":
 			level = 1
 		elif plan == "2000":
@@ -545,25 +541,18 @@ func add_guess_contingent(message: Dictionary) -> String:
 		else:
 			if level >= config_.amount_tier and months >= config_.amount_tier:
 				amount_guesses = 1
-	print(amount_guesses)
 	if message["Tags"]["user-id"] in guessers:
 		guessers[message["Tags"]["user-id"]]["guess_contigent"] += amount_guesses
 	else:
 		guessers[message["Tags"]["user-id"]] = {"last_guess": 0,"guess_contigent": amount_guesses,
 							"guesses": 0,"correct_guesses": 0}
-	print(guessers)
-	print(guessers[message["Tags"]["user-id"]])
 	return "You gained %s guesses with this @%s, use them wisely! Or not." % [amount_guesses, message["Tags"]["display-name"]]
 
 func _on_data():
-	# Print the received packet, you MUST always use get_peer(1).get_packet
-	# to receive data from server, and not get_packet directly when not
-	# using the MultiplayerAPI.
 	var message = _client.get_peer(1).get_packet().get_string_from_utf8()
 	var json = JSON.parse(message).result
 	if "pong" in json:
 		return
-	print(json)
 	var message_to_send: String
 	if config_.amount_bits:
 		if "Tags" in json and "bits" in json["Tags"]:
@@ -579,7 +568,6 @@ func _on_data():
 			return
 	if "Message" in json:
 		# check if the whole message is in the commands.
-		print(json["Message"].strip_edges() )
 		if json["Message"].strip_edges() in config_.commands:
 			var actual_command = config_.commands[json["Message"].strip_edges()]
 			if config_.build_hangman:
