@@ -440,9 +440,9 @@ margin_bottom = 560.0
 text = "Back"
 
 [node name="Label" type="Label" parent="Panel/ShowGuesses"]
-margin_left = 96.0
+margin_left = 136.0
 margin_top = 72.0
-margin_right = 301.0
+margin_right = 296.0
 margin_bottom = 103.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 4 )
