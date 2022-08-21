@@ -133,6 +133,9 @@ func _on_Settings_draw():
 				command_button.pressed = true
 				command_button.get_child(0).text = command_text
 				break
+	if config_.build_hangman:
+		$"TabContainer/Chat Commands/GuessedLettersRight/ShowingRightLetters".visible = false
+		$"TabContainer/Chat Commands/GuessedLettersWrong/ShowingWrongLetters".visible = false
 	# guess Costs tab
 	$"TabContainer/Guess Costs/CheeringBits".pressed = bool(config_.amount_bits)
 	$"TabContainer/Guess Costs/CheeringBits/AmountBits".value = config_.amount_bits
@@ -188,12 +191,18 @@ func _on_BuildHangman_toggled(button_pressed):
 		$TabContainer/Hangman/GuessedLetters.disabled = true
 		$TabContainer/Hangman/WrongLetters.disabled = true
 		$TabContainer/Hangman/CountAlreadyGuessed.disabled = true
+		$"TabContainer/Chat Commands/GuessedLettersRight/ShowingRightLetters".visible = false
+		$"TabContainer/Chat Commands/GuessedLettersWrong/ShowingWrongLetters".visible = false
 		$TabContainer.set_tab_disabled(3, true)
 	else:
 		$TabContainer/Hangman/GuessHangman.set_pressed_no_signal(true)
 		$TabContainer/Hangman/GuessedLetters.disabled = false
 		$TabContainer/Hangman/WrongLetters.disabled = false
 		$TabContainer/Hangman/CountAlreadyGuessed.disabled = false
+		if not $TabContainer/Hangman/GuessedLetters.pressed:
+			$"TabContainer/Chat Commands/GuessedLettersRight/ShowingRightLetters".visible = true
+		if not $TabContainer/Hangman/WrongLetters.pressed:
+			$"TabContainer/Chat Commands/GuessedLettersWrong/ShowingWrongLetters".visible = true
 		$TabContainer.set_tab_disabled(3, false)
 
 

@@ -1274,6 +1274,7 @@ custom_fonts/font = ExtResource( 4 )
 text = "!wrong"
 
 [node name="ShowingWrongLetters" type="Label" parent="Settings/TabContainer/Chat Commands/GuessedLettersWrong"]
+visible = false
 margin_left = 288.0
 margin_top = 17.0
 margin_right = 640.0
@@ -1308,6 +1309,7 @@ custom_fonts/font = ExtResource( 4 )
 text = "!hangmanbot right"
 
 [node name="ShowingRightLetters" type="Label" parent="Settings/TabContainer/Chat Commands/GuessedLettersRight"]
+visible = false
 margin_left = 288.0
 margin_top = 17.0
 margin_right = 640.0
