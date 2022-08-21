@@ -210,6 +210,22 @@ func command_to_text(command: String) -> String:
 				string_to_return += "If you subscribe a multitude of the required amount, you get a multitude of guesses!"
 	elif command == "guess":
 		string_to_return += "You need to add the character you want to guess after the command with a blank space."
+	elif command == "guessamount":
+		# +1 because we count the 0 as hangmanpart
+		var guess_left: int = config_.amount_guess - currentHangmanState + 1
+		string_to_return += "You have %d guesses left." % guess_left
+	elif command == "guessedlettersright":
+		# sadly we need to rebuild the current word
+		var guessed_word: String = ""
+		for letter in config_.current_word:
+			if letter in config_.guessed_chars:
+				guessed_word += letter
+			else:
+				guessed_word += " "
+		string_to_return += "The currently guessed word is: %s" % guessed_word
+	elif command == "guessedletterswrong":
+		var guessed_letters: String = ", ".join(config_.wrong_guessed_chars)
+		string_to_return += "The currently wrongly guessed letters are: %s" % guessed_letters
 	return string_to_return
 
 func draw_new_word(word: String):
@@ -441,10 +457,9 @@ func potential_guess(message: Dictionary) -> String:
 	for i in range(current_word_offset, current_word_offset + config_.current_word.length()):
 		if not $GuessingRoot.get_child(i).get_child(0).text:
 			guessed_word = false
-	var failed_word = true
-	for child in $HangmanRoot.get_children():
-		if not child.visible:
-			failed_word = false
+	var failed_word = false
+	if config_.amount_guess - currentHangmanState < 0:
+		failed_word = true
 	if not guessed_word and not failed_word:
 		return guess_result
 	else:
