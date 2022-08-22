@@ -5,9 +5,10 @@ TL;DR: Play the hangman game with your Twitch chat. You need to download this cl
 * Table of contents:
   * [Pictures](#pictures)
   * [Introductionary words](#introductionary-words)
-  * [Features](#features-)
+  * [Words of Warning](#words-of-warning)
+  * [Features](#features)
   * [Acknowledgments](#acknowledgments)
-  * [Contributing, Asking questions, feature suggestions, etc.](#contributing--asking-questions--feature-suggestions--etc)
+  * [Contributing, Asking questions, feature suggestions, etc.](#contributing-asking-questions-feature-suggestions-etc)
 
 ## Pictures
 <p float="left">
@@ -25,6 +26,13 @@ You want to read? Great. This is a small application you need to run on your str
 You need access to a running [Backend](https://github.com/Poolitzer/GoHangmanServer). You can self host this, even on the same PC you stream with. Or you can [ask me](https://poolitzer.eu/#contact) about a key for my instance.
 
 The download is over at the release tab, download the [latest one](https://github.com/Poolitzer/GoHangmanClient/releases/latest). I currently export for Windows and Linux, if you have a different platform and it is [supported by GoDot](https://docs.godotengine.org/en/stable/about/faq.html#which-platforms-are-supported-by-godot), make an issue and I will include it.
+
+## Words of warning
+
+This is a beta release! I tested everything extensively, but there will probably be bugs I have missed. Be aware that they might happen, especially if people spend money on this.
+
+If you run into a bug, open an issue and give as many details as possible, thank you :)
+
 
 ## Features
 
