@@ -9,6 +9,7 @@ TL;DR: Play the hangman game with your Twitch chat. You need to download this cl
   * [Features](#features)
   * [Acknowledgments](#acknowledgments)
   * [Contributing, Asking questions, feature suggestions, etc.](#contributing-asking-questions-feature-suggestions-etc)
+  * [License](#license)
 
 ## Pictures
 <p float="left">
@@ -62,7 +63,8 @@ Thanks also go out to [Яico](https://github.com/d-Rickyy-b) for being helpful w
 
 Lastly, thanks to [fir](https://www.twitch.tv/fir_) who originally had this idea.
  
- ## Contributing, Asking questions, feature suggestions, etc.
- Yes, please, that is the spirit of open source. Make an issue for anything!
+## Contributing, Asking questions, feature suggestions, etc.
+Yes, please, that is the spirit of open source. Make an issue for anything!
  
- This project is licensed under the GNU General Public License v3.0. You may copy, distribute and modify the software provided that modifications are described and licensed for free under [GPL-3](./license).
+## License 
+This project is licensed under the GNU General Public License v3.0. You may copy, distribute and modify the software provided that modifications are described and licensed for free under [GPL-3](./license).
