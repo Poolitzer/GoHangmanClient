@@ -34,6 +34,8 @@ This is a beta release! I tested everything extensively, but there will probably
 
 If you run into a bug, open an issue and give as many details as possible, thank you :)
 
+Oh and please make the bot account which sends messages a moderator in your stream. That removes twitch limits on how many messages it can send in your chat.
+
 
 ## Features
 
